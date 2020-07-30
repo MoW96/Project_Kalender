@@ -25,7 +25,7 @@ namespace Project_Kalender
         {
             InitializeComponent();
 
-           // NavigateToPage(new EntryPage()); später inmplemntieren
+            NavigateToPage(new Entry());
         }
 
         private void NavigateToPage(Interface_Kalender page, bool back = false)

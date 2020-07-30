@@ -83,6 +83,26 @@ namespace Project_Kalender.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_kalender_12_80 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_kalender_12_80", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_liste {
+            get {
+                object obj = ResourceManager.GetObject("icons8_liste", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_pfeil__vorwärts_96 {
             get {
                 object obj = ResourceManager.GetObject("icons8_pfeil__vorwärts_96", resourceCulture);
