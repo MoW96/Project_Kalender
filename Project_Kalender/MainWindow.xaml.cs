@@ -79,7 +79,7 @@ namespace Project_Kalender
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            //NavigateToPage(new EntryPage());
+            NavigateToPage(new Entry());
         }
 
         private void Cmd_ImpressumClick(object sender, RoutedEventArgs e)

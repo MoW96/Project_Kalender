@@ -16,13 +16,10 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+
         <!-- Buttons für Auswahl / Kalender, Terminübersicht,... -->
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <Button  Margin="10,10,10,10" x:Name="btn_Kalender" Background="Transparent" BorderBrush="Transparent">
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button  Margin="10,10,10,10" x:Name="btn_Kalender" Background="Transparent" BorderBrush="Transparent" Click="btn_Kalender_Click">
                 <Image Source="Resources/icons8-kalender-12-80.png" Height="100"/>
             </Button>
             <Button  Margin="10,10,10,10" x:Name="btn_Termin" Background="Transparent" BorderBrush="Transparent">

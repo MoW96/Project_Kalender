@@ -12,31 +12,36 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections;
 
 namespace Project_Kalender
 {
     /// <summary>
-    /// Interaktionslogik für Entry.xaml
+    /// Interaktionslogik für KalenderPage.xaml
     /// </summary>
-    public partial class Entry : Page, Interface_Kalender
+    public partial class KalenderPage : Page, Interface_Kalender
     {
-        public Entry()
+
+        private DateTime[] Datum { get; set; }
+        public KalenderPage()
         {
             InitializeComponent();
-            btn_Kalender.ToolTip = "Kalender";
-            btn_Termin.ToolTip = "Termine";
         }
 
-        public bool AllowsBack => false;
+        public bool AllowsBack => true;
 
-        public bool AllowsHome => false;
+        public bool AllowsHome => true;
 
         public Interface_Kalender Previous { get; set; }
         public event NavigationRequestEventHandler NavigationRequest;
 
-        private void btn_Kalender_Click(object sender, RoutedEventArgs e)
+        private void Kalender_SlectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            NavigationRequest?.Invoke(this, new KalenderPage());
+            Calendar myCal = (Calendar)sender;
+            Datum = myCal.SelectedDates.ToArray();
+
+            Date_von.Text = Datum[0].ToString("dddd, dd.MM.yyyy");
+            Date_bis.Text = Datum[(Datum.Length - 1)].ToString("dddd, dd.MM.yyyy");
         }
     }
 }
