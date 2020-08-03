@@ -42,6 +42,14 @@ namespace Project_Kalender
 
             Date_von.Text = Datum[0].ToString("dddd, dd.MM.yyyy");
             Date_bis.Text = Datum[(Datum.Length - 1)].ToString("dddd, dd.MM.yyyy");
+
+            Date_von.Foreground = Brushes.DarkBlue;
+            Date_bis.Foreground = Brushes.DarkBlue;
+        }
+
+        private void btn_TerminErstellen_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

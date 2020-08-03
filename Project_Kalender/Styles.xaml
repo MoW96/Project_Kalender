@@ -46,4 +46,8 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    <Style x:Key="DateVonBis" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
 </ResourceDictionary>

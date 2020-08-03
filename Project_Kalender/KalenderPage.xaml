@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Project_Kalender"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="Kalender">
     <Page.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
@@ -29,18 +29,221 @@
         <Grid Grid.Row="1" Grid.Column="0">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="10,10,0,0">Von:</TextBlock>
-                    <TextBlock Margin="10,10,0,0" x:Name="Date_von">-</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Von:</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" x:Name="Date_von">-</TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="10,0,0,0">Bis:</TextBlock>
-                    <TextBlock Margin="10,0,0,0" x:Name="Date_bis">-</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,0,0,0">Bis:</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,0,0,0" x:Name="Date_bis">-</TextBlock>
                 </StackPanel>
             </StackPanel>
             <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="1" Margin="0,0,0,15" Stroke="Black" />
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1">
             <Separator VerticalAlignment="Bottom" Foreground="Black" Margin="20,0,20,0"/>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" TextDecorations="Underline">Termin:</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Von:</TextBlock>
+                    <DatePicker Width="Auto" MinWidth="100" MaxWidth="200" Height="Auto" Margin="10,10,10,0" x:Name="formularDateVon"></DatePicker>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Bis:</TextBlock>
+                    <DatePicker Width="Auto" MinWidth="100" MaxWidth="200" Height="Auto" Margin="10,10,10,0" x:Name="formularDateBis"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Name:</TextBlock>
+                    <TextBox Width="Auto" MinWidth="250" MaxWidth="500" Height="Auto" Margin="10,10,10,0" x:Name="formularDateName"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Beschreibung:</TextBlock>
+                    <TextBox Width="Auto" MinWidth="260" MaxWidth="460" Height="Auto" Margin="10,10,10,0" x:Name="formularDateDescription"></TextBox>
+                </StackPanel>
+                <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Uhrzeit:</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Von:</TextBlock>
+                    <ComboBox Margin="10,10,0,0" x:Name="formularUhrzeitVonStunde" MaxDropDownHeight="150">
+                        <ComboBoxItem>0</ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                        <ComboBoxItem>10</ComboBoxItem>
+                        <ComboBoxItem>11</ComboBoxItem>
+                        <ComboBoxItem>12</ComboBoxItem>
+                        <ComboBoxItem>13</ComboBoxItem>
+                        <ComboBoxItem>14</ComboBoxItem>
+                        <ComboBoxItem>15</ComboBoxItem>
+                        <ComboBoxItem>16</ComboBoxItem>
+                        <ComboBoxItem>17</ComboBoxItem>
+                        <ComboBoxItem>18</ComboBoxItem>
+                        <ComboBoxItem>19</ComboBoxItem>
+                        <ComboBoxItem>20</ComboBoxItem>
+                        <ComboBoxItem>21</ComboBoxItem>
+                        <ComboBoxItem>22</ComboBoxItem>
+                        <ComboBoxItem>23</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="5,10,0,0">:</TextBlock>
+                    <ComboBox Margin="5,10,0,0" x:Name="formularUhrzeitVonMinute" MaxDropDownHeight="150">
+                        <ComboBoxItem>0</ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                        <ComboBoxItem>10</ComboBoxItem>
+                        <ComboBoxItem>11</ComboBoxItem>
+                        <ComboBoxItem>12</ComboBoxItem>
+                        <ComboBoxItem>13</ComboBoxItem>
+                        <ComboBoxItem>14</ComboBoxItem>
+                        <ComboBoxItem>15</ComboBoxItem>
+                        <ComboBoxItem>16</ComboBoxItem>
+                        <ComboBoxItem>17</ComboBoxItem>
+                        <ComboBoxItem>18</ComboBoxItem>
+                        <ComboBoxItem>19</ComboBoxItem>
+                        <ComboBoxItem>20</ComboBoxItem>
+                        <ComboBoxItem>21</ComboBoxItem>
+                        <ComboBoxItem>22</ComboBoxItem>
+                        <ComboBoxItem>23</ComboBoxItem>
+                        <ComboBoxItem>24</ComboBoxItem>
+                        <ComboBoxItem>25</ComboBoxItem>
+                        <ComboBoxItem>26</ComboBoxItem>
+                        <ComboBoxItem>27</ComboBoxItem>
+                        <ComboBoxItem>28</ComboBoxItem>
+                        <ComboBoxItem>29</ComboBoxItem>
+                        <ComboBoxItem>30</ComboBoxItem>
+                        <ComboBoxItem>31</ComboBoxItem>
+                        <ComboBoxItem>32</ComboBoxItem>
+                        <ComboBoxItem>33</ComboBoxItem>
+                        <ComboBoxItem>34</ComboBoxItem>
+                        <ComboBoxItem>35</ComboBoxItem>
+                        <ComboBoxItem>36</ComboBoxItem>
+                        <ComboBoxItem>37</ComboBoxItem>
+                        <ComboBoxItem>38</ComboBoxItem>
+                        <ComboBoxItem>39</ComboBoxItem>
+                        <ComboBoxItem>40</ComboBoxItem>
+                        <ComboBoxItem>41</ComboBoxItem>
+                        <ComboBoxItem>42</ComboBoxItem>
+                        <ComboBoxItem>43</ComboBoxItem>
+                        <ComboBoxItem>44</ComboBoxItem>
+                        <ComboBoxItem>45</ComboBoxItem>
+                        <ComboBoxItem>46</ComboBoxItem>
+                        <ComboBoxItem>47</ComboBoxItem>
+                        <ComboBoxItem>48</ComboBoxItem>
+                        <ComboBoxItem>49</ComboBoxItem>
+                        <ComboBoxItem>50</ComboBoxItem>
+                        <ComboBoxItem>51</ComboBoxItem>
+                        <ComboBoxItem>52</ComboBoxItem>
+                        <ComboBoxItem>53</ComboBoxItem>
+                        <ComboBoxItem>54</ComboBoxItem>
+                        <ComboBoxItem>55</ComboBoxItem>
+                        <ComboBoxItem>56</ComboBoxItem>
+                        <ComboBoxItem>57</ComboBoxItem>
+                        <ComboBoxItem>58</ComboBoxItem>
+                        <ComboBoxItem>59</ComboBoxItem>
+                    </ComboBox>
+                    <!-- <TextBox Width="Auto" MinWidth="50" MaxWidth="100" Height="Auto" Margin="10,10,10,0" x:Name="formularUhrzeitVon"></TextBox> -->
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Bis:</TextBlock>
+                    <ComboBox Margin="10,10,0,0" x:Name="formularUhrzeitBisStunde" MaxDropDownHeight="150">
+                        <ComboBoxItem>0</ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                        <ComboBoxItem>10</ComboBoxItem>
+                        <ComboBoxItem>11</ComboBoxItem>
+                        <ComboBoxItem>12</ComboBoxItem>
+                        <ComboBoxItem>13</ComboBoxItem>
+                        <ComboBoxItem>14</ComboBoxItem>
+                        <ComboBoxItem>15</ComboBoxItem>
+                        <ComboBoxItem>16</ComboBoxItem>
+                        <ComboBoxItem>17</ComboBoxItem>
+                        <ComboBoxItem>18</ComboBoxItem>
+                        <ComboBoxItem>19</ComboBoxItem>
+                        <ComboBoxItem>20</ComboBoxItem>
+                        <ComboBoxItem>21</ComboBoxItem>
+                        <ComboBoxItem>22</ComboBoxItem>
+                        <ComboBoxItem>23</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="5,10,0,0">:</TextBlock>
+                    <ComboBox Margin="5,10,0,0" x:Name="formularUhrzeitBisMinute" MaxDropDownHeight="150">
+                        <ComboBoxItem>0</ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                        <ComboBoxItem>10</ComboBoxItem>
+                        <ComboBoxItem>11</ComboBoxItem>
+                        <ComboBoxItem>12</ComboBoxItem>
+                        <ComboBoxItem>13</ComboBoxItem>
+                        <ComboBoxItem>14</ComboBoxItem>
+                        <ComboBoxItem>15</ComboBoxItem>
+                        <ComboBoxItem>16</ComboBoxItem>
+                        <ComboBoxItem>17</ComboBoxItem>
+                        <ComboBoxItem>18</ComboBoxItem>
+                        <ComboBoxItem>19</ComboBoxItem>
+                        <ComboBoxItem>20</ComboBoxItem>
+                        <ComboBoxItem>21</ComboBoxItem>
+                        <ComboBoxItem>22</ComboBoxItem>
+                        <ComboBoxItem>23</ComboBoxItem>
+                        <ComboBoxItem>24</ComboBoxItem>
+                        <ComboBoxItem>25</ComboBoxItem>
+                        <ComboBoxItem>26</ComboBoxItem>
+                        <ComboBoxItem>27</ComboBoxItem>
+                        <ComboBoxItem>28</ComboBoxItem>
+                        <ComboBoxItem>29</ComboBoxItem>
+                        <ComboBoxItem>30</ComboBoxItem>
+                        <ComboBoxItem>31</ComboBoxItem>
+                        <ComboBoxItem>32</ComboBoxItem>
+                        <ComboBoxItem>33</ComboBoxItem>
+                        <ComboBoxItem>34</ComboBoxItem>
+                        <ComboBoxItem>35</ComboBoxItem>
+                        <ComboBoxItem>36</ComboBoxItem>
+                        <ComboBoxItem>37</ComboBoxItem>
+                        <ComboBoxItem>38</ComboBoxItem>
+                        <ComboBoxItem>39</ComboBoxItem>
+                        <ComboBoxItem>40</ComboBoxItem>
+                        <ComboBoxItem>41</ComboBoxItem>
+                        <ComboBoxItem>42</ComboBoxItem>
+                        <ComboBoxItem>43</ComboBoxItem>
+                        <ComboBoxItem>44</ComboBoxItem>
+                        <ComboBoxItem>45</ComboBoxItem>
+                        <ComboBoxItem>46</ComboBoxItem>
+                        <ComboBoxItem>47</ComboBoxItem>
+                        <ComboBoxItem>48</ComboBoxItem>
+                        <ComboBoxItem>49</ComboBoxItem>
+                        <ComboBoxItem>50</ComboBoxItem>
+                        <ComboBoxItem>51</ComboBoxItem>
+                        <ComboBoxItem>52</ComboBoxItem>
+                        <ComboBoxItem>53</ComboBoxItem>
+                        <ComboBoxItem>54</ComboBoxItem>
+                        <ComboBoxItem>55</ComboBoxItem>
+                        <ComboBoxItem>56</ComboBoxItem>
+                        <ComboBoxItem>57</ComboBoxItem>
+                        <ComboBoxItem>58</ComboBoxItem>
+                        <ComboBoxItem>59</ComboBoxItem>
+                    </ComboBox>
+                    <!-- <TextBox Width="Auto" MinWidth="50" MaxWidth="100" Height="Auto" Margin="10,10,10,0" x:Name="formularUhrzeitBis"></TextBox> -->
+                </StackPanel>
+            </StackPanel>
+            <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Margin="20" x:Name="btn_TerminErstellen" Click="btn_TerminErstellen_Click">Erstellen</Button>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
             
