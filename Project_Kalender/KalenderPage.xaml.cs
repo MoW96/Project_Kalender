@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Project_Kalender
 {
@@ -207,24 +209,80 @@ namespace Project_Kalender
 
         private void btn_Enable()
         {
-            if (isDateVonFilled == true && isDatebisFilled == true && isTerminNameFilled == true && isTerminDescriptionFilled == true && isUhrzeitHVonFilled == true &&
-                isUhrzeitMinVonFilled == true && isUhrzeitHBisFilled == true && isUhrzeitMinBisFilled == true)
+            if (formularDateVon.SelectedDate != null && formularDateBis.SelectedDate != null && formularUhrzeitVonStunde.SelectedIndex != -1 && formularUhrzeitVonMinute.SelectedIndex != -1 &&
+                formularUhrzeitBisStunde.SelectedIndex != -1 && formularUhrzeitBisMinute.SelectedIndex != -1 && isDateVonFilled == true && isDatebisFilled == true && isTerminNameFilled == true && isTerminDescriptionFilled == true && isUhrzeitHVonFilled == true &&
+                    isUhrzeitMinVonFilled == true && isUhrzeitHBisFilled == true && isUhrzeitMinBisFilled == true)
             {
-                btn_TerminErstellen.IsEnabled = true;
+                string strDateVon = formularDateVon.Text.Substring(0, 10);
+                string strDateBis = formularDateBis.Text.Substring(0, 10);
+                DateTime DateVon = DateTime.Parse(strDateVon + " " + formularUhrzeitVonStunde.SelectedIndex.ToString() + ":" + formularUhrzeitVonMinute.SelectedIndex.ToString() + ":" + "00");
+                DateTime DateBis = DateTime.Parse(strDateBis + " " + formularUhrzeitBisStunde.SelectedIndex.ToString() + ":" + formularUhrzeitBisMinute.SelectedIndex.ToString() + ":" + "00");
+
+   
+                    if (DateTime.Compare(DateVon, DateBis) < 0)
+                    {
+                        btn_TerminErstellen.IsEnabled = true;
+                    }
+                    else
+                    {
+                        btn_TerminErstellen.IsEnabled = false;
+                    }
             }
             else
             {
-                btn_TerminErstellen.IsEnabled = false;
+                    btn_TerminErstellen.IsEnabled = false;
             }
+        }
+
+        private void db_Add_Record(string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis)
+        {
+
+            //sURL = sURL.Replace("'", "''");
+            //sTitle = sTitle.Replace("'", "''");
+
+            //// find record 
+            //string sSQL = "SELECT * FROM tbl_Termin WHERE [Name] Like '" + sURL + "'";
+            //DataTable tbl = clsDB.Get_DataTable(sSQL);
+
+            // add
+            string sql_Add = "INSERT INTO tbl_Termin ([Datum_von],[Datum_bis],[TerminName],[TerminDescription],[Uhrzeit_von],[Uhrzeit_bis]) VALUES('" + DateVon + "','" + DateBis + "','" + TerminName + "','" +
+                TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "')";
+                clsDB.Execute_SQL(sql_Add);
+
+            //else
+            //{
+            //    //update
+            //    string ID = tbl.Rows[0]["Id"].ToString();
+            //    string sql_Update = "UPDATE tbl_Details SET [dtScan] = SYSDATETIME() WHERE Id = " + ID;
+            //    clsDB.Execute_SQL(sql_Update);
+            //}
+        }
+
+        private void db_find_Record(string timeVon, string timeBis)
+        {
+            string sSQL = "SELECT * FROM tbl_Termin WHERE [Datum_von] BETWEEN '" + timeVon + "' AND '" + timeBis + "'";
+            DataTable tbl = clsDB.Get_DataTable(sSQL);
         }
 
         private void btn_TerminErstellen_Click(object sender, RoutedEventArgs e)
         {
             // Date-Format = JJJJ-MM-TT
+            var parsedDate = DateTime.Parse(formularDateVon.Text);
+            string DateVon = parsedDate.ToString("yyyy-MM-dd");
+
+            parsedDate = DateTime.Parse(formularDateBis.Text);
+            string DateBis = parsedDate.ToString("yyyy-MM-dd");
+
+            string TerminName = formularDateName.Text;
+            string TerminDescription = formularDateDescription.Text;
+
             // Time-Format = hh:mm:ss
+            string UhrzeitVon = formularUhrzeitVonStunde.Text + ":" + formularUhrzeitVonMinute.Text + ":" + "00";
 
+            string UhrzeitBis = formularUhrzeitBisStunde.Text + ":" + formularUhrzeitBisMinute.Text + ":" + "00";
 
-            // Ende: Popup "Termin erstellt"
+            db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis);
+
         }
     }
 }
