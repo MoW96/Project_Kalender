@@ -22,10 +22,20 @@ namespace Project_Kalender
     public partial class KalenderPage : Page, Interface_Kalender
     {
 
+        private bool isDateVonFilled, isDatebisFilled, isTerminNameFilled, isTerminDescriptionFilled, isUhrzeitHVonFilled, isUhrzeitMinVonFilled, isUhrzeitHBisFilled, isUhrzeitMinBisFilled;
         private DateTime[] Datum { get; set; }
         public KalenderPage()
         {
             InitializeComponent();
+            btn_TerminErstellen.IsEnabled = false;
+            isDateVonFilled = false;
+            isDatebisFilled = false;
+            isTerminNameFilled = false;
+            isTerminDescriptionFilled = false;
+            isUhrzeitHVonFilled = false;
+            isUhrzeitMinVonFilled = false;
+            isUhrzeitHBisFilled = false;
+            isUhrzeitMinBisFilled = false;
         }
 
         public bool AllowsBack => true;
@@ -33,6 +43,7 @@ namespace Project_Kalender
         public bool AllowsHome => true;
 
         public Interface_Kalender Previous { get; set; }
+
         public event NavigationRequestEventHandler NavigationRequest;
 
         private void Kalender_SlectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -45,11 +56,131 @@ namespace Project_Kalender
 
             Date_von.Foreground = Brushes.DarkBlue;
             Date_bis.Foreground = Brushes.DarkBlue;
+
+            formularDateVon.Text = Datum[0].ToString("dd.MM.yyyy");
+            formularDateBis.Text = Datum[(Datum.Length - 1)].ToString("dd.MM.yyyy");
+            CheckformularDateVon();
+            CheckformularDateBis();
+        }
+
+        private void CheckformularDateVon()
+        {
+            if (formularDateVon.SelectedDate != null)
+            {
+                isDateVonFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void CheckformularDateBis()
+        {
+            if (formularDateBis.SelectedDate != null)
+            {
+                isDatebisFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void formularDateVon_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (formularDateVon.SelectedDate != null)
+            {
+                isDateVonFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void formularDateBis_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (formularDateBis.SelectedDate != null)
+            {
+                isDatebisFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void formularDateName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(formularDateName.Text != "")
+            {
+                isTerminNameFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+
+        private void formularDateDescription_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (formularDateDescription.Text != "")
+            {
+                isTerminDescriptionFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void formularUhrzeitVonStunde_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(formularUhrzeitVonStunde.SelectedIndex != -1)
+            {
+                isUhrzeitHVonFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+
+        private void formularUhrzeitVonMinute_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (formularUhrzeitVonMinute.SelectedIndex != -1)
+            {
+                isUhrzeitMinVonFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void formularUhrzeitBisStunde_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (formularUhrzeitBisStunde.SelectedIndex != -1)
+            {
+                isUhrzeitHBisFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void formularUhrzeitBisMinute_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (formularUhrzeitBisMinute.SelectedIndex != -1)
+            {
+                isUhrzeitMinBisFilled = true;
+            }
+
+            btn_Enable();
+        }
+
+        private void btn_Enable()
+        {
+            if (isDateVonFilled == true && isDatebisFilled == true && isTerminNameFilled == true && isTerminDescriptionFilled == true && isUhrzeitHVonFilled == true &&
+                isUhrzeitMinVonFilled == true && isUhrzeitHBisFilled == true && isUhrzeitMinBisFilled == true)
+            {
+                btn_TerminErstellen.IsEnabled = true;
+            }
         }
 
         private void btn_TerminErstellen_Click(object sender, RoutedEventArgs e)
         {
+            // Date-Format = JJJJ-MM-TT
+            // Time-Format = hh:mm:ss
 
+
+            // Ende: Popup "Termin erstellt"
         }
     }
 }

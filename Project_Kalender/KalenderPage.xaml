@@ -45,22 +45,22 @@
                 <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" TextDecorations="Underline">Termin:</TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Von:</TextBlock>
-                    <DatePicker Width="Auto" MinWidth="100" MaxWidth="200" Height="Auto" Margin="10,10,10,0" x:Name="formularDateVon"></DatePicker>
+                    <DatePicker Width="Auto" MinWidth="100" MaxWidth="200" Height="Auto" Margin="10,10,10,0" x:Name="formularDateVon" SelectedDateChanged="formularDateVon_SelectedDateChanged"></DatePicker>
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Bis:</TextBlock>
-                    <DatePicker Width="Auto" MinWidth="100" MaxWidth="200" Height="Auto" Margin="10,10,10,0" x:Name="formularDateBis"></DatePicker>
+                    <DatePicker Width="Auto" MinWidth="100" MaxWidth="200" Height="Auto" Margin="10,10,10,0" x:Name="formularDateBis" SelectedDateChanged="formularDateBis_SelectedDateChanged"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Name:</TextBlock>
-                    <TextBox Width="Auto" MinWidth="250" MaxWidth="500" Height="Auto" Margin="10,10,10,0" x:Name="formularDateName"></TextBox>
+                    <TextBox Width="Auto" MinWidth="250" MaxWidth="500" Height="Auto" Margin="10,10,10,0" x:Name="formularDateName" TextChanged="formularDateName_TextChanged"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Beschreibung:</TextBlock>
-                    <TextBox Width="Auto" MinWidth="260" MaxWidth="460" Height="Auto" Margin="10,10,10,0" x:Name="formularDateDescription"></TextBox>
+                    <TextBox Width="Auto" MinWidth="260" MaxWidth="460" Height="Auto" Margin="10,10,10,0" x:Name="formularDateDescription" TextChanged="formularDateDescription_TextChanged"></TextBox>
                 </StackPanel>
                 <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Uhrzeit:</TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Von:</TextBlock>
-                    <ComboBox Margin="10,10,0,0" x:Name="formularUhrzeitVonStunde" MaxDropDownHeight="150">
+                    <ComboBox Margin="10,10,0,0" x:Name="formularUhrzeitVonStunde" MaxDropDownHeight="150" SelectionChanged="formularUhrzeitVonStunde_SelectionChanged">
                         <ComboBoxItem>0</ComboBoxItem>
                         <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
@@ -87,7 +87,7 @@
                         <ComboBoxItem>23</ComboBoxItem>
                     </ComboBox>
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="5,10,0,0">:</TextBlock>
-                    <ComboBox Margin="5,10,0,0" x:Name="formularUhrzeitVonMinute" MaxDropDownHeight="150">
+                    <ComboBox Margin="5,10,0,0" x:Name="formularUhrzeitVonMinute" MaxDropDownHeight="150" SelectionChanged="formularUhrzeitVonMinute_SelectionChanged">
                         <ComboBoxItem>0</ComboBoxItem>
                         <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
@@ -151,7 +151,7 @@
                     </ComboBox>
                     <!-- <TextBox Width="Auto" MinWidth="50" MaxWidth="100" Height="Auto" Margin="10,10,10,0" x:Name="formularUhrzeitVon"></TextBox> -->
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Bis:</TextBlock>
-                    <ComboBox Margin="10,10,0,0" x:Name="formularUhrzeitBisStunde" MaxDropDownHeight="150">
+                    <ComboBox Margin="10,10,0,0" x:Name="formularUhrzeitBisStunde" MaxDropDownHeight="150" SelectionChanged="formularUhrzeitBisStunde_SelectionChanged">
                         <ComboBoxItem>0</ComboBoxItem>
                         <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
@@ -178,7 +178,7 @@
                         <ComboBoxItem>23</ComboBoxItem>
                     </ComboBox>
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="5,10,0,0">:</TextBlock>
-                    <ComboBox Margin="5,10,0,0" x:Name="formularUhrzeitBisMinute" MaxDropDownHeight="150">
+                    <ComboBox Margin="5,10,0,0" x:Name="formularUhrzeitBisMinute" MaxDropDownHeight="150" SelectionChanged="formularUhrzeitBisMinute_SelectionChanged">
                         <ComboBoxItem>0</ComboBoxItem>
                         <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
