@@ -53,11 +53,18 @@ namespace Project_Kalender
             Calendar myCal = (Calendar)sender;
             Datum = myCal.SelectedDates.ToArray();
 
+            //Daten mit BubbleSort nach Größe sortieren
+            Datum = SortDate(Datum);
+
             Date_von.Text = Datum[0].ToString("dddd, dd.MM.yyyy");
             Date_bis.Text = Datum[(Datum.Length - 1)].ToString("dddd, dd.MM.yyyy");
+            Date_vonTermin.Text = Datum[0].ToString("dddd, dd.MM.yyyy"); ;
+            Date_bisTermin.Text = Datum[(Datum.Length - 1)].ToString("dddd, dd.MM.yyyy"); ;
 
             Date_von.Foreground = Brushes.DarkBlue;
             Date_bis.Foreground = Brushes.DarkBlue;
+            Date_vonTermin.Foreground = Brushes.DarkBlue;
+            Date_bisTermin.Foreground = Brushes.DarkBlue;
 
             formularDateVon.Text = Datum[0].ToString("dd.MM.yyyy");
             formularDateBis.Text = Datum[(Datum.Length - 1)].ToString("dd.MM.yyyy");
@@ -234,33 +241,44 @@ namespace Project_Kalender
             }
         }
 
-        private void db_Add_Record(string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis)
+        private DateTime[] SortDate(DateTime[] input)
+        {
+            DateTime Temp;
+            for (int i = 1; i < input.Length; i++)
+            {
+                for (int k = 0; k < (input.Length - i); k++)
+                {
+                    if (DateTime.Compare(input[k], input[k+1]) > 0)
+                    {
+                        Temp = input[k];
+                        input[k] = input[k + 1];
+                        input[k + 1] = Temp;
+                    }
+                }
+            }
+            return input;
+        }
+
+    private void db_Add_Record(string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis)
         {
 
             //sURL = sURL.Replace("'", "''");
             //sTitle = sTitle.Replace("'", "''");
-
-            //// find record 
-            //string sSQL = "SELECT * FROM tbl_Termin WHERE [Name] Like '" + sURL + "'";
-            //DataTable tbl = clsDB.Get_DataTable(sSQL);
 
             // add
             string sql_Add = "INSERT INTO tbl_Termin ([Datum_von],[Datum_bis],[TerminName],[TerminDescription],[Uhrzeit_von],[Uhrzeit_bis]) VALUES('" + DateVon + "','" + DateBis + "','" + TerminName + "','" +
                 TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "')";
                 clsDB.Execute_SQL(sql_Add);
 
-            //else
-            //{
             //    //update
             //    string ID = tbl.Rows[0]["Id"].ToString();
             //    string sql_Update = "UPDATE tbl_Details SET [dtScan] = SYSDATETIME() WHERE Id = " + ID;
             //    clsDB.Execute_SQL(sql_Update);
-            //}
         }
 
-        private void db_find_Record(string timeVon, string timeBis)
+        private void db_find_Record(string dateVon, string dateBis)
         {
-            string sSQL = "SELECT * FROM tbl_Termin WHERE [Datum_von] BETWEEN '" + timeVon + "' AND '" + timeBis + "'";
+            string sSQL = "SELECT * FROM tbl_Termin WHERE [Datum_von] BETWEEN '" + dateVon + "' AND '" + dateBis + "'";
             DataTable tbl = clsDB.Get_DataTable(sSQL);
         }
 

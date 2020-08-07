@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Project_Kalender"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="1000"
       Title="Kalender">
     <Page.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
@@ -39,7 +39,7 @@
             </StackPanel>
             <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="1" Margin="0,0,0,15" Stroke="Black" />
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="1">
+        <Grid Grid.Row="0" Grid.Column="1" Margin="20">
             <Separator VerticalAlignment="Bottom" Foreground="Black" Margin="20,0,20,0"/>
             <StackPanel Orientation="Vertical">
                 <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" TextDecorations="Underline">Termin:</TextBlock>
@@ -245,8 +245,16 @@
             </StackPanel>
             <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Margin="20" x:Name="btn_TerminErstellen" Click="btn_TerminErstellen_Click">Erstellen</Button>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
-            
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" >Termine von:</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" x:Name="Date_vonTermin">-</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" >bis:</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" x:Name="Date_bisTermin">-</TextBlock>
+                </StackPanel>
+                <Separator Margin="10,2,300,0"></Separator>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
