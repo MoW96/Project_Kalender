@@ -69,6 +69,10 @@ namespace Project_Kalender
             {
                 isDateVonFilled = true;
             }
+            else
+            {
+                isDateVonFilled = false;
+            }
 
             btn_Enable();
         }
@@ -78,6 +82,10 @@ namespace Project_Kalender
             if (formularDateBis.SelectedDate != null)
             {
                 isDatebisFilled = true;
+            }
+            else
+            {
+                isDatebisFilled = false;
             }
 
             btn_Enable();
@@ -89,6 +97,10 @@ namespace Project_Kalender
             {
                 isDateVonFilled = true;
             }
+            else
+            {
+                isDateVonFilled = false;
+            }
 
             btn_Enable();
         }
@@ -99,6 +111,10 @@ namespace Project_Kalender
             {
                 isDatebisFilled = true;
             }
+            else
+            {
+                isDatebisFilled = false;
+            }
 
             btn_Enable();
         }
@@ -108,6 +124,10 @@ namespace Project_Kalender
             if(formularDateName.Text != "")
             {
                 isTerminNameFilled = true;
+            }
+            else
+            {
+                isTerminNameFilled = false;
             }
 
             btn_Enable();
@@ -120,6 +140,10 @@ namespace Project_Kalender
             {
                 isTerminDescriptionFilled = true;
             }
+            else
+            {
+                isTerminDescriptionFilled = false;
+            }
 
             btn_Enable();
         }
@@ -129,6 +153,10 @@ namespace Project_Kalender
             if(formularUhrzeitVonStunde.SelectedIndex != -1)
             {
                 isUhrzeitHVonFilled = true;
+            }
+            else
+            {
+                isUhrzeitHVonFilled = false;
             }
 
             btn_Enable();
@@ -141,6 +169,10 @@ namespace Project_Kalender
             {
                 isUhrzeitMinVonFilled = true;
             }
+            else
+            {
+                isUhrzeitMinVonFilled = false;
+            }
 
             btn_Enable();
         }
@@ -150,6 +182,10 @@ namespace Project_Kalender
             if (formularUhrzeitBisStunde.SelectedIndex != -1)
             {
                 isUhrzeitHBisFilled = true;
+            }
+            else
+            {
+                isUhrzeitHBisFilled = false;
             }
 
             btn_Enable();
@@ -161,6 +197,10 @@ namespace Project_Kalender
             {
                 isUhrzeitMinBisFilled = true;
             }
+            else
+            {
+                isUhrzeitMinBisFilled = false;
+            }
 
             btn_Enable();
         }
@@ -171,6 +211,10 @@ namespace Project_Kalender
                 isUhrzeitMinVonFilled == true && isUhrzeitHBisFilled == true && isUhrzeitMinBisFilled == true)
             {
                 btn_TerminErstellen.IsEnabled = true;
+            }
+            else
+            {
+                btn_TerminErstellen.IsEnabled = false;
             }
         }
 
