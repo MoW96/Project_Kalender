@@ -68,11 +68,10 @@ namespace Project_Kalender
 
             formularDateVon.Text = Datum[0].ToString("dd.MM.yyyy");
             formularDateBis.Text = Datum[(Datum.Length - 1)].ToString("dd.MM.yyyy");
-            CheckformularDateVon();
-            CheckformularDateBis();
+            CheckformularDate();
         }
 
-        private void CheckformularDateVon()
+        private void CheckformularDate()
         {
             if (formularDateVon.SelectedDate != null)
             {
@@ -83,11 +82,6 @@ namespace Project_Kalender
                 isDateVonFilled = false;
             }
 
-            btn_Enable();
-        }
-
-        private void CheckformularDateBis()
-        {
             if (formularDateBis.SelectedDate != null)
             {
                 isDatebisFilled = true;
@@ -270,6 +264,7 @@ namespace Project_Kalender
                 TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "')";
                 clsDB.Execute_SQL(sql_Add);
 
+            MessageBox.Show("Termin: " + TerminName + " wurde angelegt.", "Hinweis");
             //    //update
             //    string ID = tbl.Rows[0]["Id"].ToString();
             //    string sql_Update = "UPDATE tbl_Details SET [dtScan] = SYSDATETIME() WHERE Id = " + ID;
