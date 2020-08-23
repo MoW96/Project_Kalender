@@ -53,7 +53,7 @@ namespace Project_Kalender
             SqlConnection cn_connection = new SqlConnection(cn_String);
             if (cn_connection.State != ConnectionState.Closed)
             {
-                cn_connection.Close();
+                cn_connection.Close(); 
             }
         }
     }
