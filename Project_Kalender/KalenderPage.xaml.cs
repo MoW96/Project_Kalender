@@ -69,6 +69,8 @@ namespace Project_Kalender
             formularDateVon.Text = Datum[0].ToString("dd.MM.yyyy");
             formularDateBis.Text = Datum[(Datum.Length - 1)].ToString("dd.MM.yyyy");
             CheckformularDate();
+
+            db_find_Record(formularDateVon.Text, formularDateBis.Text);
         }
 
         private void CheckformularDate()
@@ -264,7 +266,7 @@ namespace Project_Kalender
                 TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "')";
                 clsDB.Execute_SQL(sql_Add);
 
-            MessageBox.Show("Termin: " + TerminName + " wurde angelegt.", "Hinweis");
+            MessageBox.Show("Termin: " + "'" + TerminName + "'" + " wurde angelegt.", "Hinweis");
             //    //update
             //    string ID = tbl.Rows[0]["Id"].ToString();
             //    string sql_Update = "UPDATE tbl_Details SET [dtScan] = SYSDATETIME() WHERE Id = " + ID;
@@ -273,18 +275,20 @@ namespace Project_Kalender
 
         private void db_find_Record(string dateVon, string dateBis)
         {
+
             string sSQL = "SELECT * FROM tbl_Termin WHERE [Datum_von] BETWEEN '" + dateVon + "' AND '" + dateBis + "'";
-            DataTable tbl = clsDB.Get_DataTable(sSQL);
+
+            dgTermine.ItemsSource = clsDB.Get_DataTable(sSQL).DefaultView;
         }
 
         private void btn_TerminErstellen_Click(object sender, RoutedEventArgs e)
         {
             // Date-Format = JJJJ-MM-TT
             var parsedDate = DateTime.Parse(formularDateVon.Text);
-            string DateVon = parsedDate.ToString("yyyy-MM-dd");
+            string DateVon = parsedDate.ToString("dd.MM.yyyy");
 
             parsedDate = DateTime.Parse(formularDateBis.Text);
-            string DateBis = parsedDate.ToString("yyyy-MM-dd");
+            string DateBis = parsedDate.ToString("dd.MM.yyyy");
 
             string TerminName = formularDateName.Text;
             string TerminDescription = formularDateDescription.Text;
@@ -296,6 +300,39 @@ namespace Project_Kalender
 
             db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis);
 
+            db_find_Record(formularDateVon.Text, formularDateBis.Text);
+        }
+
+        // Termin löschen - durch Klick auf ein Icon welches immer am ende der Zeile plaziert werden soll 
+        private void db_delete_Termin(string Id_Data)
+        {
+            string SQL_Del = "DELETE FROM tbl_Termin WHERE [Id] = '" + Id_Data + "'";
+
+            clsDB.Execute_SQL(SQL_Del);
+        }
+
+        private void btnDeleteFromDB_Click(object sender, RoutedEventArgs e)
+        {
+            if ((int)dgTermine.SelectedIndex != -1)
+            {
+
+                DataRowView row = (DataRowView)dgTermine.Items.GetItemAt(dgTermine.SelectedIndex);
+
+                if (MessageBox.Show("Wollen Sie den Termin " + "'" + row["Terminname"].ToString() + "'" + " wirklich löschen?", "Löschen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    
+                    db_delete_Termin(row["ID"].ToString());
+
+                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde gelöscht!");
+
+                }
+                else
+                {
+                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde nicht gelöscht!");
+                }
+
+                db_find_Record(formularDateVon.Text, formularDateBis.Text);
+            }
         }
     }
 }

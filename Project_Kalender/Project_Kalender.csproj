@@ -154,6 +154,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Kalender_TerminDB.mdf</DependentUpon>
     </Content>
+    <Resource Include="Resources\icons8-full-trash-100.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
