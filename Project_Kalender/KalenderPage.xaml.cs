@@ -210,6 +210,34 @@ namespace Project_Kalender
             btn_Enable();
         }
 
+        private void checkboxGanztägig_Checked(object sender, RoutedEventArgs e)
+        {
+            if (checkboxGanztägig.IsChecked == true)
+            {
+                formularUhrzeitVonStunde.IsEnabled = false;
+                formularUhrzeitVonMinute.IsEnabled = false;
+                formularUhrzeitBisStunde.IsEnabled = false;
+                formularUhrzeitBisMinute.IsEnabled = false;
+
+                formularUhrzeitVonStunde.Text = "00";
+                formularUhrzeitVonMinute.Text = "00";
+                formularUhrzeitBisStunde.Text = "23";
+                formularUhrzeitBisMinute.Text = "59";
+            }
+            else
+            {
+                formularUhrzeitVonStunde.IsEnabled = true;
+                formularUhrzeitVonMinute.IsEnabled = true;
+                formularUhrzeitBisStunde.IsEnabled = true;
+                formularUhrzeitBisMinute.IsEnabled = true;
+
+                formularUhrzeitVonStunde.SelectedIndex = -1;
+                formularUhrzeitVonMinute.SelectedIndex = -1;
+                formularUhrzeitBisStunde.SelectedIndex = -1;
+                formularUhrzeitBisMinute.SelectedIndex = -1;
+            }
+        }
+
         private void btn_Enable()
         {
             if (formularDateVon.SelectedDate != null && formularDateBis.SelectedDate != null && formularUhrzeitVonStunde.SelectedIndex != -1 && formularUhrzeitVonMinute.SelectedIndex != -1 &&
@@ -255,15 +283,15 @@ namespace Project_Kalender
             return input;
         }
 
-    private void db_Add_Record(string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis)
+    private void db_Add_Record(string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis, string Tag)
         {
 
             //sURL = sURL.Replace("'", "''");
             //sTitle = sTitle.Replace("'", "''");
 
             // add
-            string sql_Add = "INSERT INTO tbl_Termin ([Datum_von],[Datum_bis],[TerminName],[TerminDescription],[Uhrzeit_von],[Uhrzeit_bis]) VALUES('" + DateVon + "','" + DateBis + "','" + TerminName + "','" +
-                TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "')";
+            string sql_Add = "INSERT INTO tbl_Termin ([Datum_von],[Datum_bis],[TerminName],[TerminDescription],[Uhrzeit_von],[Uhrzeit_bis],[Tag]) VALUES('" + DateVon + "','" + DateBis + "','" + TerminName + "','" +
+                TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "','" + Tag + "')";
                 clsDB.Execute_SQL(sql_Add);
 
             MessageBox.Show("Termin: " + "'" + TerminName + "'" + " wurde angelegt.", "Hinweis");
@@ -293,12 +321,24 @@ namespace Project_Kalender
             string TerminName = formularDateName.Text;
             string TerminDescription = formularDateDescription.Text;
 
+            string Tag;
+            
+            if (formularTag.SelectedIndex != -1)
+            {
+                Tag = formularTag.Text;
+            }
+            else
+            {
+                Tag = "";
+            }
+            
+
             // Time-Format = hh:mm:ss
             string UhrzeitVon = formularUhrzeitVonStunde.Text + ":" + formularUhrzeitVonMinute.Text + ":" + "00";
 
             string UhrzeitBis = formularUhrzeitBisStunde.Text + ":" + formularUhrzeitBisMinute.Text + ":" + "00";
 
-            db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis);
+            db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis, Tag);
 
             db_find_Record(formularDateVon.Text, formularDateBis.Text);
         }

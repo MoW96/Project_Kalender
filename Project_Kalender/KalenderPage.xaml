@@ -240,7 +240,22 @@
                         <ComboBoxItem>58</ComboBoxItem>
                         <ComboBoxItem>59</ComboBoxItem>
                     </ComboBox>
-                    <!-- <TextBox Width="Auto" MinWidth="50" MaxWidth="100" Height="Auto" Margin="10,10,10,0" x:Name="formularUhrzeitBis"></TextBox> -->
+                    <CheckBox VerticalAlignment="Center" x:Name="checkboxGanztägig" Margin="40,10,0,0" Checked="checkboxGanztägig_Checked" Unchecked="checkboxGanztägig_Checked">Ganztägig</CheckBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Tag:</TextBlock>
+                    <ComboBox Margin="10,10,0,0" x:Name="formularTag" MaxDropDownHeight="150">
+                        <ComboBoxItem>Geburtstag</ComboBoxItem>
+                        <ComboBoxItem>Privat</ComboBoxItem>
+                        <ComboBoxItem>Geschäftlich</ComboBoxItem>
+                        <ComboBoxItem>Arzt</ComboBoxItem>
+                        <ComboBoxItem>Freunde</ComboBoxItem>
+                        <ComboBoxItem>Auto</ComboBoxItem>
+                        <ComboBoxItem>Urlaub</ComboBoxItem>
+                        <ComboBoxItem>Arbeit</ComboBoxItem>
+                        <ComboBoxItem>Familie</ComboBoxItem>
+                        <ComboBoxItem>Partner</ComboBoxItem>
+                    </ComboBox>
                 </StackPanel>
             </StackPanel>
             <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Margin="20" x:Name="btn_TerminErstellen" Click="btn_TerminErstellen_Click">Erstellen</Button>
@@ -257,12 +272,13 @@
                 <DataGrid Name="dgTermine" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="10" MaxHeight="250" IsReadOnly="True">
                         <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Visibility="Hidden"/>
-                        <DataGridTextColumn Header="Von" Binding="{Binding Datum_von}" Width="Auto" MinWidth="80"/>
-                        <DataGridTextColumn Header="Bis" Binding="{Binding Datum_bis}" Width="Auto" MinWidth="80"/>
+                        <DataGridTextColumn Header="Von" Binding="{Binding Datum_von}" Width="Auto" MinWidth="70"/>
+                        <DataGridTextColumn Header="Bis" Binding="{Binding Datum_bis}" Width="Auto" MinWidth="70"/>
                         <DataGridTextColumn Header="Terminname" Binding="{Binding TerminName}" Width="Auto" MinWidth="150"/>
-                        <DataGridTextColumn Header="Beschreibung" Binding="{Binding TerminDescription}" Width="Auto" MinWidth="200"/>
+                        <DataGridTextColumn Header="Beschreibung" Binding="{Binding TerminDescription}" Width="Auto" MinWidth="190"/>
                         <DataGridTextColumn Header="Uhrzeit von" Binding="{Binding Uhrzeit_von}" Width="Auto" MinWidth="70"/>
                         <DataGridTextColumn Header="Uhrzeit bis" Binding="{Binding Uhrzeit_bis}" Width="Auto" MinWidth="70"/>
+                        <DataGridTextColumn Header="Tag" Binding="{Binding Tag}" Width="Auto" MinWidth="70"/>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
