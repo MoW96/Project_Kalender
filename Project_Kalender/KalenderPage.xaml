@@ -243,7 +243,7 @@
                     <CheckBox VerticalAlignment="Center" x:Name="checkboxGanztägig" Margin="40,10,0,0" Checked="checkboxGanztägig_Checked" Unchecked="checkboxGanztägig_Checked">Ganztägig</CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Tag:</TextBlock>
+                    <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Termin-Art:</TextBlock>
                     <ComboBox Margin="10,10,0,0" x:Name="formularTag" MaxDropDownHeight="150">
                         <ComboBoxItem>Geburtstag</ComboBoxItem>
                         <ComboBoxItem>Privat</ComboBoxItem>
