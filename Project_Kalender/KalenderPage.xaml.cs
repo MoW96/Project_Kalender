@@ -238,6 +238,19 @@ namespace Project_Kalender
             }
         }
 
+        private void btnUpdateDB_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = (DataRowView)dgTermine.Items.GetItemAt(dgTermine.SelectedIndex);
+            // TODO: Popup-Window mit vorausgefülltem Formular welches bearbeitet werden kann
+            EditWindow edit = new EditWindow(row["ID"].ToString(), row["Datum_von"].ToString(), row["Datum_bis"].ToString(), row["TerminName"].ToString(), row["TerminDescription"].ToString(), 
+                row["Uhrzeit_von"].ToString(), row["Uhrzeit_bis"].ToString(), row["Tag"].ToString());
+            edit.ShowDialog();
+
+            //MessageBox.Show("Termin wurde bearbeitet.", "Hinweis");
+
+            db_find_Record(formularDateVon.Text, formularDateBis.Text);
+        }
+
         private void btn_Enable()
         {
             if (formularDateVon.SelectedDate != null && formularDateBis.SelectedDate != null && formularUhrzeitVonStunde.SelectedIndex != -1 && formularUhrzeitVonMinute.SelectedIndex != -1 &&

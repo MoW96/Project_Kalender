@@ -269,21 +269,30 @@
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" x:Name="Date_bisTermin">-</TextBlock>
                 </StackPanel>
                 <Separator Margin="10,2,300,0"></Separator>
-                <DataGrid Name="dgTermine" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="10" MaxHeight="250" IsReadOnly="True">
+                <DataGrid Name="dgTermine" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="5" MaxHeight="245" IsReadOnly="True">
                         <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Visibility="Hidden"/>
-                        <DataGridTextColumn Header="Von" Binding="{Binding Datum_von}" Width="Auto" MinWidth="70"/>
-                        <DataGridTextColumn Header="Bis" Binding="{Binding Datum_bis}" Width="Auto" MinWidth="70"/>
-                        <DataGridTextColumn Header="Terminname" Binding="{Binding TerminName}" Width="Auto" MinWidth="150"/>
-                        <DataGridTextColumn Header="Beschreibung" Binding="{Binding TerminDescription}" Width="Auto" MinWidth="190"/>
-                        <DataGridTextColumn Header="Uhrzeit von" Binding="{Binding Uhrzeit_von}" Width="Auto" MinWidth="70"/>
-                        <DataGridTextColumn Header="Uhrzeit bis" Binding="{Binding Uhrzeit_bis}" Width="Auto" MinWidth="70"/>
+                        <DataGridTextColumn Header="Von" Binding="{Binding Datum_von}" Width="Auto" MinWidth="70" MaxWidth="70"/>
+                        <DataGridTextColumn Header="Bis" Binding="{Binding Datum_bis}" Width="Auto" MinWidth="70" MaxWidth="70"/>
+                        <DataGridTextColumn Header="Terminname" Binding="{Binding TerminName}" Width="Auto" MinWidth="145" MaxWidth="145"/>
+                        <DataGridTextColumn Header="Beschreibung" Binding="{Binding TerminDescription}" Width="Auto" MinWidth="165" MaxWidth="165"/>
+                        <DataGridTextColumn Header="Uhrzeit von" Binding="{Binding Uhrzeit_von}" Width="Auto" MinWidth="65" MaxWidth="65"/>
+                        <DataGridTextColumn Header="Uhrzeit bis" Binding="{Binding Uhrzeit_bis}" Width="Auto" MinWidth="65" MaxWidth="65"/>
                         <DataGridTextColumn Header="Tag" Binding="{Binding Tag}" Width="Auto" MinWidth="70"/>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button x:Name="btnDeleteFromDB" Click="btnDeleteFromDB_Click" Height="Auto">
-                                        <Image Source="Resources/icons8-full-trash-100.png" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                        <Image Source="Resources/icons8-full-trash-100.png" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnUpdateDB" Click="btnUpdateDB_Click" Height="Auto">
+                                        <Image Source="Resources/icons8-pencil.png" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                                     </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
