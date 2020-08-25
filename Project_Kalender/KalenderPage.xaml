@@ -269,16 +269,16 @@
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" x:Name="Date_bisTermin">-</TextBlock>
                 </StackPanel>
                 <Separator Margin="10,2,300,0"></Separator>
-                <DataGrid Name="dgTermine" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="5" MaxHeight="245" IsReadOnly="True">
-                        <DataGrid.Columns>
+                <DataGrid Name="dgTermine" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="5" MaxHeight="245" IsReadOnly="True" CanUserAddRows="false" SelectionMode="Single" SelectionUnit="FullRow">
+                    <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Visibility="Hidden"/>
-                        <DataGridTextColumn Header="Von" Binding="{Binding Datum_von}" Width="Auto" MinWidth="70" MaxWidth="70"/>
-                        <DataGridTextColumn Header="Bis" Binding="{Binding Datum_bis}" Width="Auto" MinWidth="70" MaxWidth="70"/>
-                        <DataGridTextColumn Header="Terminname" Binding="{Binding TerminName}" Width="Auto" MinWidth="145" MaxWidth="145"/>
-                        <DataGridTextColumn Header="Beschreibung" Binding="{Binding TerminDescription}" Width="Auto" MinWidth="165" MaxWidth="165"/>
-                        <DataGridTextColumn Header="Uhrzeit von" Binding="{Binding Uhrzeit_von}" Width="Auto" MinWidth="65" MaxWidth="65"/>
-                        <DataGridTextColumn Header="Uhrzeit bis" Binding="{Binding Uhrzeit_bis}" Width="Auto" MinWidth="65" MaxWidth="65"/>
-                        <DataGridTextColumn Header="Tag" Binding="{Binding Tag}" Width="Auto" MinWidth="70"/>
+                        <DataGridTextColumn Header="Von" Binding="{Binding Datum_von}" Width="Auto" MinWidth="70" MaxWidth="70" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Bis" Binding="{Binding Datum_bis}" Width="Auto" MinWidth="70" MaxWidth="70" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Terminname" Binding="{Binding TerminName}" Width="Auto" MinWidth="138" MaxWidth="138" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Beschreibung" Binding="{Binding TerminDescription}" Width="Auto" MinWidth="160" MaxWidth="160" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Uhrzeit von" Binding="{Binding Uhrzeit_von}" Width="Auto" MinWidth="70" MaxWidth="70" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Uhrzeit bis" Binding="{Binding Uhrzeit_bis}" Width="Auto" MinWidth="70" MaxWidth="70" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Tag" Binding="{Binding Tag}" Width="Auto" MinWidth="70" IsReadOnly="True"/>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

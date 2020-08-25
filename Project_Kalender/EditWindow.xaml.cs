@@ -31,12 +31,35 @@ namespace Project_Kalender
             formularDateBis.SelectedDate = DateTime.Parse(DateBis);
             formularDateName.Text = TerminName;
             formularDateDescription.Text = TerminDescription;
-            // TODO: Index wird nicht gefunden
-            formularUhrzeitVonStunde.SelectedIndex = (int) formularUhrzeitVonStunde.Items.IndexOf(UhrzeitVon.Substring(0, 2));
-            formularUhrzeitVonMinute.SelectedIndex = (int) formularUhrzeitVonMinute.Items.IndexOf(UhrzeitVon.Substring(3, 2));
-            formularUhrzeitBisStunde.SelectedIndex = (int) formularUhrzeitBisStunde.Items.IndexOf(UhrzeitBis.Substring(0, 2));
-            formularUhrzeitBisMinute.SelectedIndex = (int) formularUhrzeitBisMinute.Items.IndexOf(UhrzeitBis.Substring(3, 2));
-            formularTag.SelectedIndex = (int) formularTag.Items.IndexOf(Tag);
+
+            int index;
+
+            if (UhrzeitVon.Equals("00:00:00") && UhrzeitBis.Equals("23:59:00"))
+            {
+                checkboxGanztägig.IsChecked = true;
+            } 
+            else
+            {
+                var comboBoxItem = formularUhrzeitVonStunde.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Content.ToString() == UhrzeitVon.Substring(0, 2).ToString());
+                index = formularUhrzeitVonStunde.SelectedIndex = formularUhrzeitVonStunde.Items.IndexOf(comboBoxItem);
+                formularUhrzeitVonStunde.SelectedIndex = index;
+
+                comboBoxItem = formularUhrzeitVonMinute.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Content.ToString() == UhrzeitVon.Substring(3, 2).ToString());
+                index = formularUhrzeitVonMinute.SelectedIndex = formularUhrzeitVonMinute.Items.IndexOf(comboBoxItem);
+                formularUhrzeitVonMinute.SelectedIndex = index;
+
+                comboBoxItem = formularUhrzeitBisStunde.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Content.ToString() == UhrzeitBis.Substring(0, 2).ToString());
+                index = formularUhrzeitBisStunde.SelectedIndex = formularUhrzeitBisStunde.Items.IndexOf(comboBoxItem);
+                formularUhrzeitBisStunde.SelectedIndex = index;
+
+                comboBoxItem = formularUhrzeitBisMinute.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Content.ToString() == UhrzeitBis.Substring(3, 2).ToString());
+                index = formularUhrzeitBisMinute.SelectedIndex = formularUhrzeitBisMinute.Items.IndexOf(comboBoxItem);
+                formularUhrzeitBisMinute.SelectedIndex = index;
+            }
+
+            var comboBoxItemNeu = formularTag.Items.OfType<ComboBoxItem>().FirstOrDefault(x => x.Content.ToString() == Tag.ToString());
+            index = formularTag.SelectedIndex = formularTag.Items.IndexOf(comboBoxItemNeu);
+            formularTag.SelectedIndex = index;
         }
 
         private void Kalender_SlectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -303,7 +326,8 @@ namespace Project_Kalender
                 "TerminDescription = '" + TerminDescription + "', " +
                 "Uhrzeit_von = '" + UhrzeitVon + "', " +
                 "Uhrzeit_bis = '" + UhrzeitBis + "', " +
-                "Tag = '" + Tag + "'";
+                "Tag = '" + Tag + "'" +
+                 "WHERE Id = '" + ID + "'";
             clsDB.Execute_SQL(sql_update);
         }
     }
