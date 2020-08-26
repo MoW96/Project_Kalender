@@ -38,5 +38,10 @@ namespace Project_Kalender
         {
             NavigationRequest?.Invoke(this, new KalenderPage());
         }
+
+        private void btn_Termin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationRequest?.Invoke(this, new TerminePage());
+        }
     }
 }

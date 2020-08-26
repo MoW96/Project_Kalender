@@ -22,7 +22,7 @@
             <Button  Margin="10,10,10,10" x:Name="btn_Kalender" Background="Transparent" BorderBrush="Transparent" Click="btn_Kalender_Click">
                 <Image Source="Resources/icons8-kalender-12-80.png" Height="100"/>
             </Button>
-            <Button  Margin="10,10,10,10" x:Name="btn_Termin" Background="Transparent" BorderBrush="Transparent">
+            <Button  Margin="10,10,10,10" x:Name="btn_Termin" Background="Transparent" BorderBrush="Transparent" Click="btn_Termin_Click">
                 <Image Source="Resources/icons8-liste.png" Height="100"/>
             </Button>
         </StackPanel>
