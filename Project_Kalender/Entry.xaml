@@ -8,7 +8,7 @@
       d:DesignHeight="650" d:DesignWidth="1000"
       Title="Kalender">
     <Page.Resources>
-    <ResourceDictionary Source="Styles.xaml"/>
+        <ResourceDictionary Source="Styles.xaml"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>

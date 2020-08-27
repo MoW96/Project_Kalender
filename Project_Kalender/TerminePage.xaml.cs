@@ -24,6 +24,13 @@ namespace Project_Kalender
         public TerminePage()
         {
             InitializeComponent();
+            cbFilterart.SelectedIndex = 0;
+            dpDate.Visibility = Visibility.Collapsed;
+            tbTermin.Visibility = Visibility.Collapsed;
+            cbUhrzeitH.Visibility = Visibility.Collapsed;
+            tbUhrzeit.Visibility = Visibility.Collapsed;
+            cbUhrzeitMin.Visibility = Visibility.Collapsed;
+            cbTag.Visibility = Visibility.Collapsed;
             db_find_startRecord();
         }
 
@@ -39,6 +46,22 @@ namespace Project_Kalender
         {
 
             string sSQL = "SELECT * FROM tbl_Termin";
+
+            dgTermine.ItemsSource = clsDB.Get_DataTable(sSQL).DefaultView;
+        }
+
+        private void db_find_Record(string wert, string spalte)
+        {
+
+            string sSQL = "SELECT * FROM tbl_Termin WHERE [" + spalte + "] = '" + wert + "'";
+
+            dgTermine.ItemsSource = clsDB.Get_DataTable(sSQL).DefaultView;
+        }
+
+        private void db_find_like_Record(string wert, string spalte)
+        {
+
+            string sSQL = "SELECT * FROM tbl_Termin WHERE [" + spalte + "] Like '%" + wert + "%'";
 
             dgTermine.ItemsSource = clsDB.Get_DataTable(sSQL).DefaultView;
         }
@@ -70,22 +93,187 @@ namespace Project_Kalender
                     MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde nicht gelöscht!");
                 }
 
-                db_find_startRecord();
+                searchOptions();
             }
         }
 
         private void btnUpdateDB_Click(object sender, RoutedEventArgs e)
         {
             DataRowView row = (DataRowView)dgTermine.Items.GetItemAt(dgTermine.SelectedIndex);
-            // TODO: Popup-Window mit vorausgefülltem Formular welches bearbeitet werden kann
             EditWindow edit = new EditWindow(row["ID"].ToString(), row["Datum_von"].ToString(), row["Datum_bis"].ToString(), row["TerminName"].ToString(), row["TerminDescription"].ToString(),
                 row["Uhrzeit_von"].ToString(), row["Uhrzeit_bis"].ToString(), row["Tag"].ToString());
             edit.ShowDialog();
 
-            //MessageBox.Show("Termin wurde bearbeitet.", "Hinweis");
+            searchOptions();
 
-            db_find_startRecord();
+        }
 
+        private void cbAlleTermine_Selected(object sender, RoutedEventArgs e)
+        {
+            dpDate.Visibility = Visibility.Collapsed;
+            tbTermin.Visibility = Visibility.Collapsed;
+            radioButtons.Visibility = Visibility.Collapsed;
+            cbUhrzeitH.Visibility = Visibility.Collapsed;
+            tbUhrzeit.Visibility = Visibility.Collapsed;
+            cbUhrzeitMin.Visibility = Visibility.Collapsed;
+            cbTag.Visibility = Visibility.Collapsed;
+        }
+
+        private void cbDatum_Selected(object sender, RoutedEventArgs e)
+        {
+            dpDate.Visibility = Visibility.Visible;
+            tbTermin.Visibility = Visibility.Collapsed;
+            radioButtons.Visibility = Visibility.Collapsed;
+            cbUhrzeitH.Visibility = Visibility.Collapsed;
+            tbUhrzeit.Visibility = Visibility.Collapsed;
+            cbUhrzeitMin.Visibility = Visibility.Collapsed;
+            cbTag.Visibility = Visibility.Collapsed;
+        }
+
+        private void cbTermin_Selected(object sender, RoutedEventArgs e)
+        {
+            dpDate.Visibility = Visibility.Collapsed;
+            tbTermin.Visibility = Visibility.Visible;
+            radioButtons.Visibility = Visibility.Visible;
+            cbUhrzeitH.Visibility = Visibility.Collapsed;
+            tbUhrzeit.Visibility = Visibility.Collapsed;
+            cbUhrzeitMin.Visibility = Visibility.Collapsed;
+            cbTag.Visibility = Visibility.Collapsed;
+
+            tbTermin.Tag = "Bitte etwas eingeben";
+
+        }
+
+        private void cbUhrzeit_Selected(object sender, RoutedEventArgs e)
+        {
+            dpDate.Visibility = Visibility.Collapsed;
+            tbTermin.Visibility = Visibility.Collapsed;
+            radioButtons.Visibility = Visibility.Collapsed;
+            cbUhrzeitH.Visibility = Visibility.Visible;
+            tbUhrzeit.Visibility = Visibility.Visible;
+            cbUhrzeitMin.Visibility = Visibility.Visible;
+            cbTag.Visibility = Visibility.Collapsed;
+        }
+
+        private void cbTerminart_Selected(object sender, RoutedEventArgs e)
+        {
+            dpDate.Visibility = Visibility.Collapsed;
+            tbTermin.Visibility = Visibility.Collapsed;
+            radioButtons.Visibility = Visibility.Collapsed;
+            cbUhrzeitH.Visibility = Visibility.Collapsed;
+            tbUhrzeit.Visibility = Visibility.Collapsed;
+            cbUhrzeitMin.Visibility = Visibility.Collapsed;
+            cbTag.Visibility = Visibility.Visible;
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            searchOptions();
+        }
+
+        private void searchOptions()
+        {
+            switch (cbFilterart.SelectedIndex)
+            {
+                case 0:
+                    db_find_startRecord();
+                    break;
+                case 1:
+                    if (!dpDate.Text.Equals(""))
+                    {
+                        var parsedDate = DateTime.Parse(dpDate.Text);
+                        string DateVon = parsedDate.ToString("dd.MM.yyyy");
+                        db_find_Record(DateVon, "Datum_von");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bitte ein Datum auswählen");
+                    }
+                    break;
+                case 2:
+                    if (!dpDate.Text.Equals(""))
+                    {
+                        var parsedDate = DateTime.Parse(dpDate.Text);
+                        string DateVon = parsedDate.ToString("dd.MM.yyyy");
+                        db_find_Record(DateVon, "Datum_bis");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bitte ein Datum auswählen");
+                    }
+                    break;
+                case 3:
+                    if (!tbTermin.Text.Equals(""))
+                    {
+                        if (radioTeil.IsChecked == true)
+                        {
+                            db_find_like_Record(tbTermin.Text, "TerminName");
+                        }
+
+                        if (radioKomplett.IsChecked == true)
+                        {
+                            db_find_Record(tbTermin.Text, "TerminName");
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bitte etwas eingeben");
+                    }
+                    break;
+                case 4:
+                    if (!tbTermin.Text.Equals(""))
+                    {
+                        if (radioTeil.IsChecked == true)
+                        {
+                            db_find_like_Record(tbTermin.Text, "TerminDescription");
+                        }
+                        
+                        if (radioKomplett.IsChecked == true)
+                        {
+                            db_find_Record(tbTermin.Text, "TerminDescription");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bitte etwas eingeben");
+                    }
+                    break;
+                case 5:
+                    if (!cbUhrzeitH.Text.Equals("") && !cbUhrzeitMin.Text.Equals(""))
+                    {
+                        string Uhrzeit = cbUhrzeitH.Text + ":" + cbUhrzeitMin.Text + ":00";
+                        db_find_Record(Uhrzeit, "Uhrzeit_von");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bitte etwas auswählen");
+                    }
+                    break;
+                case 6:
+                    if (!cbUhrzeitH.Text.Equals("") && !cbUhrzeitMin.Text.Equals(""))
+                    {
+                        string Uhrzeit = cbUhrzeitH.Text + ":" + cbUhrzeitMin.Text + ":00";
+                        db_find_Record(Uhrzeit, "Uhrzeit_bis");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bitte etwas auswählen");
+                    }
+                    break;
+                case 7:
+                    if (!cbTag.Text.Equals(""))
+                    {
+                        db_find_Record(cbTag.Text, "Tag");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bitte eine Art auswählen");
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

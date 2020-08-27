@@ -51,11 +51,11 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Name:</TextBlock>
-                    <TextBox Width="Auto" MinWidth="250" MaxWidth="500" Height="Auto" Margin="10,10,10,0" x:Name="formularDateName" TextChanged="formularDateName_TextChanged"></TextBox>
+                    <TextBox Width="Auto" MinWidth="250" MaxWidth="500" Height="Auto" Margin="10,10,10,0" x:Name="formularDateName" TextChanged="formularDateName_TextChanged" MaxLength="300" TextWrapping="Wrap"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Beschreibung:</TextBlock>
-                    <TextBox Width="Auto" MinWidth="260" MaxWidth="460" Height="Auto" Margin="10,10,10,0" x:Name="formularDateDescription" TextChanged="formularDateDescription_TextChanged"></TextBox>
+                    <TextBox Width="Auto" MinWidth="260" MaxWidth="460" Height="Auto" Margin="10,10,10,0" x:Name="formularDateDescription" MaxLength="400" TextWrapping="Wrap" TextChanged="formularDateDescription_TextChanged"></TextBox>
                 </StackPanel>
                 <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Uhrzeit:</TextBlock>
                 <StackPanel Orientation="Horizontal">
@@ -269,7 +269,7 @@
                     <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0" x:Name="Date_bisTermin">-</TextBlock>
                 </StackPanel>
                 <Separator Margin="10,2,300,0"></Separator>
-                <DataGrid Name="dgTermine" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="5" MaxHeight="245" IsReadOnly="True" CanUserAddRows="false" SelectionMode="Single" SelectionUnit="FullRow">
+                <DataGrid Name="dgTermine" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="5" MaxHeight="245" IsReadOnly="True" CanUserAddRows="false" SelectionMode="Single" SelectionUnit="FullRow" AlternatingRowBackground="LightGray"  AlternationCount="2">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Visibility="Hidden"/>
                         <DataGridTextColumn Header="Von" Binding="{Binding Datum_von}" Width="Auto" MinWidth="70" MaxWidth="70" IsReadOnly="True"/>

@@ -24,7 +24,6 @@ namespace Project_Kalender
         public MainWindow()
         {
             InitializeComponent();
-
             NavigateToPage(new Entry());
         }
 

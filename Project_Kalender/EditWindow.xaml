@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_Kalender"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Termin Bearbeiten" Height="300" Width="500"
         Topmost="True"
         MinHeight="300" MinWidth="500"
@@ -23,11 +24,11 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Name:</TextBlock>
-                <TextBox Width="Auto" MinWidth="250" MaxWidth="500" Height="Auto" Margin="10,10,10,0" x:Name="formularDateName" TextChanged="formularDateName_TextChanged"></TextBox>
+                <TextBox Width="Auto" MinWidth="250" MaxWidth="500" Height="Auto" Margin="10,10,10,0" x:Name="formularDateName" MaxLength="300" TextWrapping="Wrap" TextChanged="formularDateName_TextChanged"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Beschreibung:</TextBlock>
-                <TextBox Width="Auto" MinWidth="260" MaxWidth="460" Height="Auto" Margin="10,10,10,0" x:Name="formularDateDescription" TextChanged="formularDateDescription_TextChanged"></TextBox>
+                <TextBox Width="Auto" MinWidth="260" MaxWidth="460" Height="Auto" Margin="10,10,10,0" x:Name="formularDateDescription" MaxLength="400" TextWrapping="Wrap" TextChanged="formularDateDescription_TextChanged"></TextBox>
             </StackPanel>
             <TextBlock Style="{StaticResource DateVonBis}" Margin="10,10,0,0">Uhrzeit:</TextBlock>
             <StackPanel Orientation="Horizontal">
