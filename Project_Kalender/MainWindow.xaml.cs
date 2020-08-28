@@ -85,5 +85,10 @@ namespace Project_Kalender
         {
            // NavigateToPage(impressumPage);
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
     }
 }

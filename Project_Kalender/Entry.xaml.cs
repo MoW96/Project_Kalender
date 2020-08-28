@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Project_Kalender
 {
@@ -20,11 +21,17 @@ namespace Project_Kalender
     /// </summary>
     public partial class Entry : Page, Interface_Kalender
     {
+        Thread circleThread;
         public Entry()
         {
             InitializeComponent();
             btn_Kalender.ToolTip = "Kalender";
             btn_Termin.ToolTip = "Termine";
+
+            circleThread = new Thread(new ThreadStart(movingCircle));
+            circleThread.IsBackground = true;
+            circleThread.SetApartmentState(ApartmentState.STA);
+            circleThread.Start();
         }
 
         public bool AllowsBack => false;
@@ -37,11 +44,59 @@ namespace Project_Kalender
         private void btn_Kalender_Click(object sender, RoutedEventArgs e)
         {
             NavigationRequest?.Invoke(this, new KalenderPage());
+            //circleThread.Abort();
         }
 
         private void btn_Termin_Click(object sender, RoutedEventArgs e)
         {
             NavigationRequest?.Invoke(this, new TerminePage());
+            //circleThread.Abort();
+        }
+
+        private void movingCircle()
+        {
+            while (true)
+            {
+                for (int i = 0; i <= 175; i++)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        Canvas.SetTop(ellipse, i);
+                        Canvas.SetTop(ellipse1, 175-i);
+                    });
+                    Thread.Sleep(5);
+                }
+
+                for (int i = 0; i <= 500; i++)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        Canvas.SetLeft(ellipse, i);
+                        Canvas.SetLeft(ellipse1, 500 - i);
+                    });
+                    Thread.Sleep(5);
+                }
+
+                for (int i = 175; i >= 0; i--)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        Canvas.SetTop(ellipse, i);
+                        Canvas.SetTop(ellipse1, 175 - i);
+                    });
+                    Thread.Sleep(5);
+                }
+
+                for (int i = 500; i >= 0; i--)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        Canvas.SetLeft(ellipse, i);
+                        Canvas.SetLeft(ellipse1, 500 - i);
+                    });
+                    Thread.Sleep(5);
+                }
+            }
         }
     }
 }

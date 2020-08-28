@@ -26,5 +26,9 @@
                 <Image Source="Resources/icons8-liste.png" Height="100"/>
             </Button>
         </StackPanel>
+        <Canvas Grid.Row="1" Margin="200,100,200,150" x:Name="myCanvas">
+            <Ellipse x:Name="ellipse" Width="100" Height="100" Fill="DarkRed"  Canvas.Top="0"/>
+            <Ellipse x:Name="ellipse1" Width="100" Height="100" Fill="Gray"  Canvas.Left="500"/>
+        </Canvas>
     </Grid>
 </Page>
