@@ -43,7 +43,8 @@
                 </Grid>
             </Button>
         </StackPanel>
-        <Grid Grid.Row="0" x:Name="Logo" HorizontalAlignment="Right" Width="175">
+        <Grid Grid.Row="0" x:Name="UserGrid" HorizontalAlignment="Right" Width="175">
+            <TextBlock x:Name="Username" FontSize="15" HorizontalAlignment="Right" Margin="10"></TextBlock>
         </Grid>
         <Label Grid.Row="2" Style="{StaticResource ImpressumLabel}">
             <Hyperlink Click="Cmd_ImpressumClick">

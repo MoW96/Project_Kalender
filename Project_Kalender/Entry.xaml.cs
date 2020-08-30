@@ -21,6 +21,7 @@ namespace Project_Kalender
     /// </summary>
     public partial class Entry : Page, Interface_Kalender
     {
+        public string EMailAdresse;
         Thread circleThread;
         public Entry()
         {
@@ -32,14 +33,34 @@ namespace Project_Kalender
             circleThread.IsBackground = true;
             circleThread.SetApartmentState(ApartmentState.STA);
             circleThread.Start();
+
+            // PageGeladen();
         }
 
         public bool AllowsBack => false;
 
         public bool AllowsHome => false;
 
+
         public Interface_Kalender Previous { get; set; }
         public event NavigationRequestEventHandler NavigationRequest;
+
+        private void PageGeladen()
+        {
+            if (EMailAdresse == null)
+            {
+                // TODO: prüfen ob username schon in DB steht (extra tabelle) wenn nein, dann username reinschreiben und aufforderung starten eine Mail-Adresse einzugeben
+                // bei jedem start des Programms das abprüfen, am besten bevor das Programm überhaupt das MainWindow lädt
+
+                MailEingabe mailEingabe = new MailEingabe();
+                mailEingabe.Show();
+                EMailAdresse = mailEingabe.Mail;
+            }
+
+            MessageBox.Show(EMailAdresse);
+        }
+
+
 
         private void btn_Kalender_Click(object sender, RoutedEventArgs e)
         {
@@ -62,7 +83,7 @@ namespace Project_Kalender
                     this.Dispatcher.Invoke(() =>
                     {
                         Canvas.SetTop(ellipse, i);
-                        Canvas.SetTop(ellipse1, 175-i);
+                        Canvas.SetTop(ellipse1, 175 - i);
                     });
                     Thread.Sleep(5);
                 }

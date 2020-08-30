@@ -46,6 +46,7 @@ namespace Project_Kalender
             cmdBack.IsEnabled = page.AllowsBack;
             cmdHome.IsEnabled = page.AllowsHome;
             frame.Content = page as Page;
+            Username.Text = "User: " + Environment.UserName;
         }
 
         private void Page_NavigationRequest(object sender, Interface_Kalender page)
