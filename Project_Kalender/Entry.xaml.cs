@@ -28,13 +28,14 @@ namespace Project_Kalender
             InitializeComponent();
             btn_Kalender.ToolTip = "Kalender";
             btn_Termin.ToolTip = "Termine";
+            btn_Einstellungen.ToolTip = "Einstellungen";
 
             circleThread = new Thread(new ThreadStart(movingCircle));
             circleThread.IsBackground = true;
             circleThread.SetApartmentState(ApartmentState.STA);
             circleThread.Start();
 
-            // PageGeladen();
+            EingabeMail();
         }
 
         public bool AllowsBack => false;
@@ -45,22 +46,26 @@ namespace Project_Kalender
         public Interface_Kalender Previous { get; set; }
         public event NavigationRequestEventHandler NavigationRequest;
 
-        private void PageGeladen()
+        private void EingabeMail()
         {
-            if (EMailAdresse == null)
+            if (get_MailFromDB().Equals("") || get_MailFromDB() == null)
             {
-                // TODO: prüfen ob username schon in DB steht (extra tabelle) wenn nein, dann username reinschreiben und aufforderung starten eine Mail-Adresse einzugeben
-                // bei jedem start des Programms das abprüfen, am besten bevor das Programm überhaupt das MainWindow lädt
+                // Einstellungen erstellen in denen die Mail geändert werden kann
 
                 MailEingabe mailEingabe = new MailEingabe();
-                mailEingabe.Show();
+                mailEingabe.ShowDialog();
                 EMailAdresse = mailEingabe.Mail;
+                string sql_Add = "INSERT INTO tblUser ([Username],[MailAdresse],[PerMailSenden]) VALUES('" + Environment.UserName + "','" + EMailAdresse + "','" + "Ja" + "')";
+                clsDB.Execute_SQL(sql_Add);
             }
-
-            MessageBox.Show(EMailAdresse);
         }
 
-
+        private string get_MailFromDB()
+        {
+            string sSQL = "SELECT MailAdresse FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+            
+            return clsDB.Get_String(sSQL, "Mail");
+        }
 
         private void btn_Kalender_Click(object sender, RoutedEventArgs e)
         {
@@ -118,6 +123,11 @@ namespace Project_Kalender
                     Thread.Sleep(5);
                 }
             }
+        }
+
+        private void btn_Einstellungen_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationRequest?.Invoke(this, new Einstellungen());
         }
     }
 }

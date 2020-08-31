@@ -36,6 +36,31 @@ namespace Project_Kalender
             return table;
         }
 
+        public static string Get_String(string SQLText, string Type)
+        {
+            SqlConnection cn_connection = Get_DB_Connection();
+
+            DataSet dataSet = new DataSet();
+            var dataAdapter = new SqlDataAdapter(SQLText, cn_connection);
+
+            dataAdapter.Fill(dataSet);
+
+            if (dataSet.Tables[0].Rows.Count == 0)
+            {
+                return "";
+            }
+            else
+            {
+                if (Type.Equals("Mail")) {
+                    return dataSet.Tables[0].Rows[0]["MailAdresse"].ToString();
+                }
+                else
+                {
+                    return dataSet.Tables[0].Rows[0]["PerMailSenden"].ToString();
+                }
+            }
+        }
+
         // Ausführen
         public static void Execute_SQL(string SQLText)
         {

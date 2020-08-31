@@ -24,6 +24,15 @@ namespace Project_Kalender
         public MainWindow()
         {
             InitializeComponent();
+
+            Username.Text = "User: " + Environment.UserName;
+
+            //if (get_UserFromDB().Equals("") || get_UserFromDB() == null)
+            //{
+            //    string sql_Add = "INSERT INTO tblUser ([Username],[MailAdresse]) VALUES('" + Environment.UserName + "','" + "" + "')";
+            //    clsDB.Execute_SQL(sql_Add);
+            //}
+
             NavigateToPage(new Entry());
         }
 
@@ -46,7 +55,13 @@ namespace Project_Kalender
             cmdBack.IsEnabled = page.AllowsBack;
             cmdHome.IsEnabled = page.AllowsHome;
             frame.Content = page as Page;
-            Username.Text = "User: " + Environment.UserName;
+        }
+
+        private string get_UserFromDB()
+        {
+            string sSQL = "SELECT Username FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "User");
         }
 
         private void Page_NavigationRequest(object sender, Interface_Kalender page)
