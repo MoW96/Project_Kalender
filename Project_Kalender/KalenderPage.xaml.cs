@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Collections;
 using System.Data.SqlClient;
 using System.Data;
+using System.Net.Mail;
 
 namespace Project_Kalender
 {
@@ -354,6 +355,49 @@ namespace Project_Kalender
             db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis, Tag);
 
             db_find_Record(formularDateVon.Text, formularDateBis.Text);
+
+            if (get_SendenFromDB().Equals("Ja"))
+            {
+                string from = "termin@kalender.de";
+                string to = get_MailFromDB();
+
+                SmtpClient SmtpMail = new SmtpClient("smtp.gmail.com");
+                SmtpMail.Port = 587;
+                SmtpMail.Credentials = new System.Net.NetworkCredential("sendmail.wegner", "MaiL.Wegner.121");
+                SmtpMail.EnableSsl = true;
+
+                MailMessage myMail = new MailMessage(from, to);
+                myMail.Subject = "Termin: " + formularDateName.Text;
+                myMail.Priority = MailPriority.Low;
+                myMail.IsBodyHtml = true;
+                myMail.Body = "<html>" +
+                    "<body style='text-align:center, margin:auto'>" +
+                    "<h2 style='color:#a60008'><u>" + formularDateName.Text + "</u></h2>" +
+                    "<p>" +
+                    formularDateDescription.Text + "<br>" +
+                    "<u>Von:</u> " + formularDateVon.Text + "&nbsp;&nbsp;&nbsp; <u>Bis:</u> " + formularDateBis.Text + "<br>" +
+                    "<u>Uhrzeit:</u> " + formularUhrzeitVonStunde.Text + ":" + formularUhrzeitVonMinute.Text + "&nbsp; - &nbsp;" + formularUhrzeitBisStunde.Text + ":" + formularUhrzeitBisMinute.Text + "<br>" +
+                    "<u>Art:</u> " + formularTag.Text + "<br>" +
+                    "</p>" +
+                    "</body>" +
+                    "</html>";
+
+                SmtpMail.Send(myMail);
+            }
+        }
+
+        private string get_MailFromDB()
+        {
+            string sSQL = "SELECT MailAdresse FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "Mail");
+        }
+
+        private string get_SendenFromDB()
+        {
+            string sSQL = "SELECT PerMailSenden FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "PerMailSenden");
         }
 
         // Termin löschen - durch Klick auf ein Icon welches immer am ende der Zeile plaziert werden soll 
@@ -385,6 +429,29 @@ namespace Project_Kalender
                 }
 
                 db_find_Record(formularDateVon.Text, formularDateBis.Text);
+
+                if (get_SendenFromDB().Equals("Ja"))
+                {
+                    string from = "termin@kalender.de";
+                    string to = get_MailFromDB();
+
+                    SmtpClient SmtpMail = new SmtpClient("smtp.gmail.com");
+                    SmtpMail.Port = 587;
+                    SmtpMail.Credentials = new System.Net.NetworkCredential("sendmail.wegner", "MaiL.Wegner.121");
+                    SmtpMail.EnableSsl = true;
+
+                    MailMessage myMail = new MailMessage(from, to);
+                    myMail.Subject = "Termin: " + row["TerminName"].ToString() + " gelöscht";
+                    myMail.Priority = MailPriority.Low;
+                    myMail.IsBodyHtml = true;
+                    myMail.Body = "<html>" +
+                        "<body style='text-align:center, margin:auto'>" +
+                        "<h2>Termin: " + row["TerminName"].ToString() + " (" + row["Datum_von"].ToString() + " - " + row["Datum_bis"].ToString() + ") wurde gelöscht</h2>" +
+                        "</body>" +
+                        "</html>";
+
+                    SmtpMail.Send(myMail);
+                }
             }
         }
     }

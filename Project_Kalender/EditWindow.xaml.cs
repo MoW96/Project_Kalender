@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Net.Mail;
 
 namespace Project_Kalender
 {
@@ -315,6 +316,35 @@ namespace Project_Kalender
 
             db_update_DB(Id, DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis, Tag);
 
+            if (get_SendenFromDB().Equals("Ja"))
+            {
+                string from = "termin@kalender.de";
+                string to = get_MailFromDB();
+
+                SmtpClient SmtpMail = new SmtpClient("smtp.gmail.com");
+                SmtpMail.Port = 587;
+                SmtpMail.Credentials = new System.Net.NetworkCredential("sendmail.wegner", "MaiL.Wegner.121");
+                SmtpMail.EnableSsl = true;
+
+                MailMessage myMail = new MailMessage(from, to);
+                myMail.Subject = "Termin: " + formularDateName.Text + " updated";
+                myMail.Priority = MailPriority.Low;
+                myMail.IsBodyHtml = true;
+                myMail.Body = "<html>" +
+                    "<body style='text-align:center, margin:auto'>" +
+                    "<h2 style='color:#cc9900'><u>" + formularDateName.Text + "</u></h2>" +
+                    "<p>" +
+                    formularDateDescription.Text + "<br>" +
+                    "<u>Von:</u> " + formularDateVon.Text + "&nbsp;&nbsp;&nbsp; <u>Bis:</u> " + formularDateBis.Text + "<br>" +
+                    "<u>Uhrzeit:</u> " + formularUhrzeitVonStunde.Text + ":" + formularUhrzeitVonMinute.Text + "&nbsp; - &nbsp;" + formularUhrzeitBisStunde.Text + ":" + formularUhrzeitBisMinute.Text + "<br>" +
+                    "<u>Art:</u> " + formularTag.Text + "<br>" +
+                    "</p>" +
+                    "</body>" +
+                    "</html>";
+
+                SmtpMail.Send(myMail);
+            }
+
             this.Close();
         }
 
@@ -329,6 +359,20 @@ namespace Project_Kalender
                 "Tag = '" + Tag + "'" +
                  "WHERE Id = '" + ID + "'";
             clsDB.Execute_SQL(sql_update);
+        }
+
+        private string get_MailFromDB()
+        {
+            string sSQL = "SELECT MailAdresse FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "Mail");
+        }
+
+        private string get_SendenFromDB()
+        {
+            string sSQL = "SELECT PerMailSenden FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "PerMailSenden");
         }
     }
 }
