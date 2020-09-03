@@ -55,7 +55,7 @@ namespace Project_Kalender
                 MailEingabe mailEingabe = new MailEingabe();
                 mailEingabe.ShowDialog();
                 EMailAdresse = mailEingabe.Mail;
-                string sql_Add = "INSERT INTO tblUser ([Username],[MailAdresse],[PerMailSenden]) VALUES('" + Environment.UserName + "','" + EMailAdresse + "','" + "Ja" + "')";
+                string sql_Add = "INSERT INTO tblUser ([Username],[MailAdresse],[PerMailSenden],[DateiSchreiben]) VALUES('" + Environment.UserName + "','" + EMailAdresse + "','" + "Ja" + "','" + "Ja" + "')";
                 clsDB.Execute_SQL(sql_Add);
             }
         }
@@ -88,17 +88,29 @@ namespace Project_Kalender
                     this.Dispatcher.Invoke(() =>
                     {
                         Canvas.SetTop(ellipse, i);
-                        Canvas.SetTop(ellipse1, 175 - i);
+                        Canvas.SetTop(ellipse2, 175 - i);
+                        Canvas.SetLeft(ellipse1, i);
+                        Canvas.SetLeft(ellipse3, 175 - i);
+                        //ellipse4.Height = ellipse4.Height + (i / 150);
+                        //ellipse4.Width = ellipse4.Width + (i / 150);
+
+                        changeColorEllipse();
                     });
-                    Thread.Sleep(5);
+                    Thread.Sleep(5);         
                 }
 
-                for (int i = 0; i <= 500; i++)
+                for (int i = 0; i <= 175; i++)
                 {
                     this.Dispatcher.Invoke(() =>
                     {
                         Canvas.SetLeft(ellipse, i);
-                        Canvas.SetLeft(ellipse1, 500 - i);
+                        Canvas.SetLeft(ellipse2, 175 - i);
+                        Canvas.SetTop(ellipse1, 175 - i);
+                        Canvas.SetTop(ellipse3, i);
+                        //ellipse4.Width = ellipse4.Width - (i / 150);
+                        //ellipse4.Height = ellipse4.Height - (i / 150);
+
+                        changeColorEllipse();
                     });
                     Thread.Sleep(5);
                 }
@@ -108,20 +120,66 @@ namespace Project_Kalender
                     this.Dispatcher.Invoke(() =>
                     {
                         Canvas.SetTop(ellipse, i);
-                        Canvas.SetTop(ellipse1, 175 - i);
+                        Canvas.SetTop(ellipse2, 175 - i);
+                        Canvas.SetLeft(ellipse1, i);
+                        Canvas.SetLeft(ellipse3, 175 - i);
+                        //ellipse4.Height = ellipse4.Height + (i / 150);
+                        //ellipse4.Width = ellipse4.Width + (i / 150);
+
+                        changeColorEllipse();
                     });
                     Thread.Sleep(5);
                 }
 
-                for (int i = 500; i >= 0; i--)
+                for (int i = 175; i >= 0; i--)
                 {
                     this.Dispatcher.Invoke(() =>
                     {
                         Canvas.SetLeft(ellipse, i);
-                        Canvas.SetLeft(ellipse1, 500 - i);
+                        Canvas.SetLeft(ellipse2, 175 - i);
+                        Canvas.SetTop(ellipse1, 175 - i);
+                        Canvas.SetTop(ellipse3, i);
+                        //ellipse4.Width = ellipse4.Width - (i / 150);
+                        //ellipse4.Height = ellipse4.Height - (i / 150);
+
+                        changeColorEllipse();
                     });
-                    Thread.Sleep(5);
+                    Thread.Sleep(5);                    
                 }
+            }
+        }
+
+        private void changeColorEllipse()
+        {
+            if (ellipse.IsMouseDirectlyOver == true || ellipse2.IsMouseDirectlyOver == true)
+            {
+                ellipse.Fill = Brushes.Navy;
+                ellipse2.Fill = Brushes.Navy;
+            }
+            else
+            {
+                ellipse.Fill = Brushes.DarkRed;
+                ellipse2.Fill = Brushes.DarkRed;
+            }
+
+            if (ellipse1.IsMouseDirectlyOver == true || ellipse3.IsMouseDirectlyOver == true)
+            {
+                ellipse1.Fill = Brushes.Gold;
+                ellipse3.Fill = Brushes.Gold;
+            }
+            else
+            {
+                ellipse1.Fill = Brushes.Gray;
+                ellipse3.Fill = Brushes.Gray;
+            }
+
+            if (ellipse4.IsMouseDirectlyOver == true)
+            {
+                ellipse4.Fill = Brushes.Purple;
+            }
+            else
+            {
+                ellipse4.Fill = Brushes.DarkGreen;
             }
         }
 

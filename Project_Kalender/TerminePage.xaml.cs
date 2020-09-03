@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,12 +86,17 @@ namespace Project_Kalender
 
                     db_delete_Termin(row["ID"].ToString());
 
-                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde gelöscht!");
+                    if (File.Exists(@"C:\Users\mwegn\OneDrive\Dokumente\MyKalender\" + row["Dateiname"].ToString() + ".txt"))
+                    {
+                        File.Delete(@"C:\Users\mwegn\OneDrive\Dokumente\MyKalender\" + row["Dateiname"].ToString() + ".txt");
+                    }
+
+                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde gelöscht!", "Löschen", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
                 else
                 {
-                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde nicht gelöscht!");
+                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde nicht gelöscht!", "Löschen", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 searchOptions();
@@ -101,7 +107,7 @@ namespace Project_Kalender
         {
             DataRowView row = (DataRowView)dgTermine.Items.GetItemAt(dgTermine.SelectedIndex);
             EditWindow edit = new EditWindow(row["ID"].ToString(), row["Datum_von"].ToString(), row["Datum_bis"].ToString(), row["TerminName"].ToString(), row["TerminDescription"].ToString(),
-                row["Uhrzeit_von"].ToString(), row["Uhrzeit_bis"].ToString(), row["Tag"].ToString());
+                row["Uhrzeit_von"].ToString(), row["Uhrzeit_bis"].ToString(), row["Tag"].ToString(), row["Dateiname"].ToString());
             edit.ShowDialog();
 
             searchOptions();
@@ -187,7 +193,7 @@ namespace Project_Kalender
                     }
                     else
                     {
-                        MessageBox.Show("Bitte ein Datum auswählen");
+                        MessageBox.Show("Bitte ein Datum auswählen", "Warnung", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     break;
                 case 2:
@@ -199,7 +205,7 @@ namespace Project_Kalender
                     }
                     else
                     {
-                        MessageBox.Show("Bitte ein Datum auswählen");
+                        MessageBox.Show("Bitte ein Datum auswählen", "Warnung", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     break;
                 case 3:
@@ -218,7 +224,7 @@ namespace Project_Kalender
                     }
                     else
                     {
-                        MessageBox.Show("Bitte etwas eingeben");
+                        MessageBox.Show("Bitte etwas eingeben", "Warnung", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     break;
                 case 4:
@@ -258,7 +264,7 @@ namespace Project_Kalender
                     }
                     else
                     {
-                        MessageBox.Show("Bitte etwas auswählen");
+                        MessageBox.Show("Bitte etwas auswählen", "Warnung", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     break;
                 case 7:
@@ -268,7 +274,7 @@ namespace Project_Kalender
                     }
                     else
                     {
-                        MessageBox.Show("Bitte eine Art auswählen");
+                        MessageBox.Show("Bitte eine Art auswählen", "Warnung", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     break;
                 default:

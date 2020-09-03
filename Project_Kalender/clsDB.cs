@@ -56,7 +56,14 @@ namespace Project_Kalender
                 }
                 else
                 {
-                    return dataSet.Tables[0].Rows[0]["PerMailSenden"].ToString();
+                    if (Type.Equals("PerMailSenden"))
+                    {
+                        return dataSet.Tables[0].Rows[0]["PerMailSenden"].ToString();
+                    }
+                    else
+                    {
+                        return dataSet.Tables[0].Rows[0]["DateiSchreiben"].ToString();
+                    }
                 }
             }
         }

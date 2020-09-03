@@ -20,7 +20,13 @@
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <TextBlock FontSize="15" Margin="0,0,20,0" TextDecorations="underline">Termin per Mail senden: </TextBlock>
                 <RadioButton x:Name="radioMailJa" VerticalAlignment="Center" Margin="0,0,20,0" Checked="radioMailJa_Checked">Ja</RadioButton>
-                <RadioButton x:Name="radioMailNein" VerticalAlignment="Center" Margin="0,0,20,0" Checked="radioMailNein_Checked">Nein</RadioButton> <!--Mit in DB speichern und abrufen-->
+                <RadioButton x:Name="radioMailNein" VerticalAlignment="Center" Margin="0,0,20,0" Checked="radioMailNein_Checked">Nein</RadioButton>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <TextBlock FontSize="15" Margin="0,0,20,0" TextDecorations="underline">In Datei speichern:</TextBlock>
+                <RadioButton x:Name="radioDateiJa" VerticalAlignment="Center" Margin="0,0,20,0" Checked="radioDateiJa_Checked">Ja</RadioButton>
+                <RadioButton x:Name="radioDateiNein" VerticalAlignment="Center" Margin="0,0,20,0" Checked="radioDateiNein_Checked">Nein</RadioButton>
+                <!--Mit in DB speichern und abrufen-->
             </StackPanel>
         </StackPanel>
     </Grid>

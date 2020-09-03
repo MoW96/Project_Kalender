@@ -36,6 +36,17 @@ namespace Project_Kalender
                 radioMailJa.IsChecked = false;
                 radioMailNein.IsChecked = true;
             }
+
+            if (get_DateiFromDB().Equals("Ja"))
+            {
+                radioDateiJa.IsChecked = true;
+                radioDateiNein.IsChecked = false;
+            }
+            else
+            {
+                radioDateiJa.IsChecked = false;
+                radioDateiNein.IsChecked = true;
+            }
         }
 
         public bool AllowsBack => true;
@@ -58,6 +69,13 @@ namespace Project_Kalender
             string sSQL = "SELECT PerMailSenden FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
 
             return clsDB.Get_String(sSQL, "PerMailSenden");
+        }
+
+        private string get_DateiFromDB()
+        {
+            string sSQL = "SELECT DateiSchreiben FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "DateiSchreiben");
         }
 
         private void btnMailÄndern_Click(object sender, RoutedEventArgs e)
@@ -86,6 +104,24 @@ namespace Project_Kalender
 
             radioMailJa.IsChecked = false;
             radioMailNein.IsChecked = true;
+        }
+
+        private void radioDateiJa_Checked(object sender, RoutedEventArgs e)
+        {
+            string sql_Update = "UPDATE tblUser SET DateiSchreiben = '" + "Ja" + "' WHERE Username = '" + Environment.UserName + "'";
+            clsDB.Execute_SQL(sql_Update);
+
+            radioDateiJa.IsChecked = true;
+            radioDateiNein.IsChecked = false;
+        }
+
+        private void radioDateiNein_Checked(object sender, RoutedEventArgs e)
+        {
+            string sql_Update = "UPDATE tblUser SET DateiSchreiben = '" + "Nein" + "' WHERE Username = '" + Environment.UserName + "'";
+            clsDB.Execute_SQL(sql_Update);
+
+            radioDateiJa.IsChecked = false;
+            radioDateiNein.IsChecked = true;
         }
     }
 }

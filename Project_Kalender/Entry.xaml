@@ -29,9 +29,12 @@
                 <Image Source="Resources/icons8-settings.png" Height="100"/>
             </Button>
         </StackPanel>
-        <Canvas Grid.Row="1" Margin="200,100,200,150" x:Name="myCanvas">
-            <Ellipse x:Name="ellipse" Width="100" Height="100" Fill="DarkRed"  Canvas.Top="0"/>
-            <Ellipse x:Name="ellipse1" Width="100" Height="100" Fill="Gray"  Canvas.Left="500"/>
+        <Canvas Grid.Row="1" Margin="375,100,375,175" x:Name="myCanvas">
+            <Ellipse x:Name="ellipse" Width="75" Height="75" Fill="DarkRed"  Canvas.Top="0" Canvas.Left="0"/>
+            <Ellipse x:Name="ellipse1" Width="75" Height="75" Fill="Gray"  Canvas.Top="175" Canvas.Left="0"/>
+            <Ellipse x:Name="ellipse3" Width="75" Height="75" Fill="Gray"  Canvas.Top="0" Canvas.Left="175"/>
+            <Ellipse x:Name="ellipse2" Width="75" Height="75" Fill="DarkRed"  Canvas.Top="175" Canvas.Left="175"/>
+            <Ellipse x:Name="ellipse4" Width="75" Height="75" Fill="DarkGreen"  Canvas.Top="87.5" Canvas.Left="87.5"/>
         </Canvas>
     </Grid>
 </Page>

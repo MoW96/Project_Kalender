@@ -16,6 +16,7 @@ using System.Collections;
 using System.Data.SqlClient;
 using System.Data;
 using System.Net.Mail;
+using System.IO;
 
 namespace Project_Kalender
 {
@@ -24,7 +25,6 @@ namespace Project_Kalender
     /// </summary>
     public partial class KalenderPage : Page, Interface_Kalender
     {
-
         private bool isDateVonFilled, isDatebisFilled, isTerminNameFilled, isTerminDescriptionFilled, isUhrzeitHVonFilled, isUhrzeitMinVonFilled, isUhrzeitHBisFilled, isUhrzeitMinBisFilled;
         private DateTime[] Datum { get; set; }
         public KalenderPage()
@@ -244,7 +244,7 @@ namespace Project_Kalender
             DataRowView row = (DataRowView)dgTermine.Items.GetItemAt(dgTermine.SelectedIndex);
             // TODO: Popup-Window mit vorausgefülltem Formular welches bearbeitet werden kann
             EditWindow edit = new EditWindow(row["ID"].ToString(), row["Datum_von"].ToString(), row["Datum_bis"].ToString(), row["TerminName"].ToString(), row["TerminDescription"].ToString(), 
-                row["Uhrzeit_von"].ToString(), row["Uhrzeit_bis"].ToString(), row["Tag"].ToString());
+                row["Uhrzeit_von"].ToString(), row["Uhrzeit_bis"].ToString(), row["Tag"].ToString(), row["Dateiname"].ToString());
             edit.ShowDialog();
 
             //MessageBox.Show("Termin wurde bearbeitet.", "Hinweis");
@@ -299,20 +299,22 @@ namespace Project_Kalender
 
     private void db_Add_Record(string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis, string Tag)
         {
+                string sql_Add = "INSERT INTO tbl_Termin ([Datum_von],[Datum_bis],[TerminName],[TerminDescription],[Uhrzeit_von],[Uhrzeit_bis],[Tag]) VALUES('" + DateVon + "','" + DateBis + "','" + TerminName + "','" +
+                    TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "','" + Tag + "')";
 
-            //sURL = sURL.Replace("'", "''");
-            //sTitle = sTitle.Replace("'", "''");
-
-            // add
-            string sql_Add = "INSERT INTO tbl_Termin ([Datum_von],[Datum_bis],[TerminName],[TerminDescription],[Uhrzeit_von],[Uhrzeit_bis],[Tag]) VALUES('" + DateVon + "','" + DateBis + "','" + TerminName + "','" +
-                TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "','" + Tag + "')";
                 clsDB.Execute_SQL(sql_Add);
 
-            MessageBox.Show("Termin: " + "'" + TerminName + "'" + " wurde angelegt.", "Hinweis");
-            //    //update
-            //    string ID = tbl.Rows[0]["Id"].ToString();
-            //    string sql_Update = "UPDATE tbl_Details SET [dtScan] = SYSDATETIME() WHERE Id = " + ID;
-            //    clsDB.Execute_SQL(sql_Update);
+            MessageBox.Show("Termin: " + "'" + TerminName + "'" + " wurde angelegt.", "Termin erstellen", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void db_Add_Record(string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis, string Tag, string Dateiname)
+        {
+            string sql_Add = "INSERT INTO tbl_Termin ([Datum_von],[Datum_bis],[TerminName],[TerminDescription],[Uhrzeit_von],[Uhrzeit_bis],[Tag],[Dateiname]) VALUES('" + DateVon + "','" + DateBis + "','" + TerminName + "','" +
+                    TerminDescription + "', '" + UhrzeitVon + "','" + UhrzeitBis + "','" + Tag + "','" + Dateiname + "')";
+
+            clsDB.Execute_SQL(sql_Add);
+
+            MessageBox.Show("Termin: " + "'" + TerminName + "'" + " wurde angelegt.", "Termin erstellen", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void db_find_Record(string dateVon, string dateBis)
@@ -336,7 +338,7 @@ namespace Project_Kalender
             string TerminDescription = formularDateDescription.Text;
 
             string Tag;
-            
+
             if (formularTag.SelectedIndex != -1)
             {
                 Tag = formularTag.Text;
@@ -345,14 +347,23 @@ namespace Project_Kalender
             {
                 Tag = "";
             }
-            
+
 
             // Time-Format = hh:mm:ss
             string UhrzeitVon = formularUhrzeitVonStunde.Text + ":" + formularUhrzeitVonMinute.Text + ":" + "00";
 
             string UhrzeitBis = formularUhrzeitBisStunde.Text + ":" + formularUhrzeitBisMinute.Text + ":" + "00";
 
-            db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis, Tag);
+            String Dateiname = TerminName + "_" + DateTime.Now.ToString("MM-dd-yyyy_HH-mm");
+
+            if (get_DateiFromDB().Equals("Nein"))
+            {
+                db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis, Tag);
+            }
+            else
+            {
+                db_Add_Record(DateVon, DateBis, TerminName, TerminDescription, UhrzeitVon, UhrzeitBis, Tag, Dateiname);
+            }
 
             db_find_Record(formularDateVon.Text, formularDateBis.Text);
 
@@ -384,6 +395,20 @@ namespace Project_Kalender
 
                 SmtpMail.Send(myMail);
             }
+
+            if (get_DateiFromDB().Equals("Ja"))
+            {
+                string[] lines = {"Name: " + formularDateName.Text, "Beschreibung: " + formularDateDescription.Text, "Von: " + formularDateVon.Text + " Bis: " + formularDateBis.Text, 
+                    "Uhrzeit: " + formularUhrzeitVonStunde.Text + ":" + formularUhrzeitVonMinute.Text + " - " + formularUhrzeitBisStunde.Text + ":" + formularUhrzeitBisMinute.Text, "Art: " + formularTag.Text};
+                new DateiSchreiben(Dateiname, lines);
+            }
+        }
+
+        private string get_DateiFromDB()
+        {
+            string sSQL = "SELECT DateiSchreiben FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "DateiSchreiben");
         }
 
         private string get_MailFromDB()
@@ -420,12 +445,17 @@ namespace Project_Kalender
                     
                     db_delete_Termin(row["ID"].ToString());
 
-                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde gelöscht!");
+                    if (File.Exists(@"C:\Users\mwegn\OneDrive\Dokumente\MyKalender\" + row["Dateiname"].ToString() + ".txt"))
+                    {
+                        File.Delete(@"C:\Users\mwegn\OneDrive\Dokumente\MyKalender\" + row["Dateiname"].ToString() + ".txt");
+                    }
+
+                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde gelöscht!", "Löschen", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
                 else
                 {
-                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde nicht gelöscht!");
+                    MessageBox.Show("Termin: " + "'" + row["Terminname"].ToString() + "'" + " wurde nicht gelöscht!", "Löschen", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 db_find_Record(formularDateVon.Text, formularDateBis.Text);

@@ -21,12 +21,13 @@ namespace Project_Kalender
     public partial class EditWindow : Window
     {
         private bool isDateVonFilled, isDatebisFilled, isTerminNameFilled, isTerminDescriptionFilled, isUhrzeitHVonFilled, isUhrzeitMinVonFilled, isUhrzeitHBisFilled, isUhrzeitMinBisFilled;
-        private string Id;
+        private string Id, Dateiname;
         private DateTime[] Datum { get; set; }
-        public EditWindow(string ID, string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis, string Tag)
+        public EditWindow(string ID, string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis, string Tag, string Dateiname)
         {
             InitializeComponent();
 
+            this.Dateiname = Dateiname;
             this.Id = ID;
             formularDateVon.SelectedDate = DateTime.Parse(DateVon);
             formularDateBis.SelectedDate = DateTime.Parse(DateBis);
@@ -345,7 +346,21 @@ namespace Project_Kalender
                 SmtpMail.Send(myMail);
             }
 
+            if (get_DateiFromDB().Equals("Ja"))
+            {
+                string[] lines = {"Name: " + formularDateName.Text, "Beschreibung: " + formularDateDescription.Text, "Von: " + formularDateVon.Text + " Bis: " + formularDateBis.Text,
+                    "Uhrzeit: " + formularUhrzeitVonStunde.Text + ":" + formularUhrzeitVonMinute.Text + " - " + formularUhrzeitBisStunde.Text + ":" + formularUhrzeitBisMinute.Text, "Art: " + formularTag.Text};
+                new DateiSchreiben(Dateiname, lines);
+            }
+
             this.Close();
+        }
+
+        private string get_DateiFromDB()
+        {
+            string sSQL = "SELECT DateiSchreiben FROM tblUser WHERE [Username] = '" + Environment.UserName + "'";
+
+            return clsDB.Get_String(sSQL, "DateiSchreiben");
         }
 
         private void db_update_DB(string ID, string DateVon, string DateBis, string TerminName, string TerminDescription, string UhrzeitVon, string UhrzeitBis, string Tag)
