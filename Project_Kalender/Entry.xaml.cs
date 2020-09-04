@@ -173,14 +173,14 @@ namespace Project_Kalender
                 ellipse3.Fill = Brushes.Gray;
             }
 
-            if (ellipse4.IsMouseDirectlyOver == true)
-            {
-                ellipse4.Fill = Brushes.Purple;
-            }
-            else
-            {
-                ellipse4.Fill = Brushes.DarkGreen;
-            }
+            //if (ellipse4.IsMouseDirectlyOver == true)
+            //{
+            //    ellipse4.Fill = Brushes.Purple;
+            //}
+            //else
+            //{
+            //    ellipse4.Fill = Brushes.DarkGreen;
+            //}
         }
 
         private void btn_Einstellungen_Click(object sender, RoutedEventArgs e)

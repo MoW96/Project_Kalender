@@ -34,7 +34,7 @@
             <Ellipse x:Name="ellipse1" Width="75" Height="75" Fill="Gray"  Canvas.Top="175" Canvas.Left="0"/>
             <Ellipse x:Name="ellipse3" Width="75" Height="75" Fill="Gray"  Canvas.Top="0" Canvas.Left="175"/>
             <Ellipse x:Name="ellipse2" Width="75" Height="75" Fill="DarkRed"  Canvas.Top="175" Canvas.Left="175"/>
-            <Ellipse x:Name="ellipse4" Width="75" Height="75" Fill="DarkGreen"  Canvas.Top="87.5" Canvas.Left="87.5"/>
+            <!--<Ellipse x:Name="ellipse4" Width="75" Height="75" Fill="DarkGreen"  Canvas.Top="87.5" Canvas.Left="87.5"/>-->
         </Canvas>
     </Grid>
 </Page>
